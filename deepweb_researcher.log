@@ -1,0 +1,354 @@
+# DeepWeb Researcher - Complete System Log
+# This file captures all backend and frontend activities
+# Format: [TIMESTAMP] [SOURCE] [LEVEL] [MESSAGE]
+
+[2025-07-19 15:00:00] [SYSTEM] [INFO] Log file initialized
+[2025-07-19 15:00:00] [SYSTEM] [INFO] Backend server starting on port 5001
+[2025-07-19 15:00:00] [SYSTEM] [INFO] Frontend running on port 5173 [2025-07-19 15:07:00,581] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 15:07:00,708] [BACKEND] [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.2:5001
+[2025-07-19 15:07:00,709] [BACKEND] [INFO] [33mPress CTRL+C to quit[0m
+[2025-07-19 15:07:00,713] [BACKEND] [INFO]  * Restarting with stat
+[2025-07-19 15:07:01,587] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 15:07:01,636] [BACKEND] [WARNING]  * Debugger is active!
+[2025-07-19 15:07:01,646] [BACKEND] [INFO]  * Debugger PIN: 424-838-864
+[2025-07-19 15:07:15,293] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 15:07:15] "OPTIONS /research/start HTTP/1.1" 200 -
+[2025-07-19 15:07:15,657] [BACKEND] [INFO] Research started - Query: 'api'
+[2025-07-19 15:07:15,682] [BACKEND] [INFO] Generated research ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2
+[2025-07-19 15:07:15,691] [BACKEND] [INFO] Mock research processing started for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2
+[2025-07-19 15:07:15,692] [BACKEND] [INFO] Research thread started for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2
+[2025-07-19 15:07:15,695] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 15:07:15] "POST /research/start HTTP/1.1" 200 -
+[2025-07-19 15:07:15,792] [BACKEND] [INFO] Research results requested for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2
+[2025-07-19 15:07:15,828] [BACKEND] [INFO] Research results not found for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2 - Status: processing
+[2025-07-19 15:07:15,846] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 15:07:15] "GET /research/results/d8bb22f4-38aa-405d-842a-68e7ae86ada2 HTTP/1.1" 200 -
+[2025-07-19 15:07:16,409] [BACKEND] [INFO] Research results requested for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2
+[2025-07-19 15:07:16,421] [BACKEND] [INFO] Research results not found for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2 - Status: processing
+[2025-07-19 15:07:16,442] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 15:07:16] "GET /research/results/d8bb22f4-38aa-405d-842a-68e7ae86ada2 HTTP/1.1" 200 -
+[2025-07-19 15:07:17,404] [BACKEND] [INFO] Research results requested for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2
+[2025-07-19 15:07:17,406] [BACKEND] [INFO] Research results not found for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2 - Status: processing
+[2025-07-19 15:07:17,408] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 15:07:17] "GET /research/results/d8bb22f4-38aa-405d-842a-68e7ae86ada2 HTTP/1.1" 200 -
+[2025-07-19 15:07:17,656] [BACKEND] [INFO] Research results requested for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2
+[2025-07-19 15:07:17,656] [BACKEND] [INFO] Research results not found for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2 - Status: processing
+[2025-07-19 15:07:17,660] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 15:07:17] "GET /research/results/d8bb22f4-38aa-405d-842a-68e7ae86ada2 HTTP/1.1" 200 -
+[2025-07-19 15:07:17,694] [BACKEND] [INFO] Mock research completed and stored for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2
+[2025-07-19 15:07:17,737] [BACKEND] [INFO] Research results requested for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2
+[2025-07-19 15:07:17,738] [BACKEND] [INFO] Research results found for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2 - Status: completed
+[2025-07-19 15:07:17,739] [BACKEND] [INFO] Returning formatted research results for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2
+[2025-07-19 15:07:17,741] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 15:07:17] "GET /research/results/d8bb22f4-38aa-405d-842a-68e7ae86ada2 HTTP/1.1" 200 -
+[2025-07-19 15:07:18,448] [BACKEND] [INFO] Research results requested for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2
+[2025-07-19 15:07:18,449] [BACKEND] [INFO] Research results found for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2 - Status: completed
+[2025-07-19 15:07:18,449] [BACKEND] [INFO] Returning formatted research results for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2
+[2025-07-19 15:07:18,452] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 15:07:18] "GET /research/results/d8bb22f4-38aa-405d-842a-68e7ae86ada2 HTTP/1.1" 200 -
+[2025-07-19 15:07:18,477] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 15:07:18] "OPTIONS /library/save-draft HTTP/1.1" 200 -
+[2025-07-19 15:07:18,493] [BACKEND] [INFO] Save draft request received - Title: 'Research: api (ID: d8bb22f4)'
+[2025-07-19 15:07:18,495] [BACKEND] [INFO] Draft saved successfully - ID: 6bbc60b4-990c-4b54-953f-1e77e6219221, Title: 'Research: api (ID: d8bb22f4)'
+[2025-07-19 15:07:18,501] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 15:07:18] "[35m[1mPOST /library/save-draft HTTP/1.1[0m" 201 -
+[2025-07-19 15:07:18,589] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 15:07:18] "GET /library/drafts HTTP/1.1" 200 -
+[2025-07-19 15:07:18,872] [BACKEND] [INFO] Research results requested for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2
+[2025-07-19 15:07:18,873] [BACKEND] [INFO] Research results found for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2 - Status: completed
+[2025-07-19 15:07:18,873] [BACKEND] [INFO] Returning formatted research results for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2
+[2025-07-19 15:07:18,876] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 15:07:18] "GET /research/results/d8bb22f4-38aa-405d-842a-68e7ae86ada2 HTTP/1.1" 200 -
+[2025-07-19 15:07:19,135] [BACKEND] [INFO] Research results requested for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2
+[2025-07-19 15:07:19,136] [BACKEND] [INFO] Research results found for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2 - Status: completed
+[2025-07-19 15:07:19,136] [BACKEND] [INFO] Returning formatted research results for ID: d8bb22f4-38aa-405d-842a-68e7ae86ada2
+[2025-07-19 15:07:19,138] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 15:07:19] "GET /research/results/d8bb22f4-38aa-405d-842a-68e7ae86ada2 HTTP/1.1" 200 -
+[2025-07-19 15:56:44,739] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 15:56:44,847] [BACKEND] [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.2:5001
+[2025-07-19 15:56:44,848] [BACKEND] [INFO] [33mPress CTRL+C to quit[0m
+[2025-07-19 15:56:44,851] [BACKEND] [INFO]  * Restarting with stat
+[2025-07-19 15:56:45,718] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 15:56:45,772] [BACKEND] [WARNING]  * Debugger is active!
+[2025-07-19 15:56:45,785] [BACKEND] [INFO]  * Debugger PIN: 424-838-864
+[2025-07-19 16:00:16,074] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:00:16] "GET /health HTTP/1.1" 200 -
+[2025-07-19 16:00:22,568] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:00:22] "[35m[1mPOST /auth/guest HTTP/1.1[0m" 201 -
+[2025-07-19 16:00:28,462] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:00:28] "[35m[1mPOST /auth/guest HTTP/1.1[0m" 201 -
+[2025-07-19 16:00:35,120] [BACKEND] [INFO] Research started - Query: 'test research'
+[2025-07-19 16:00:35,120] [BACKEND] [INFO] Generated research ID: a199feef-8e70-45e6-9ff5-536f6a716a87
+[2025-07-19 16:00:35,121] [BACKEND] [INFO] Mock research processing started for ID: a199feef-8e70-45e6-9ff5-536f6a716a87
+[2025-07-19 16:00:35,121] [BACKEND] [INFO] Research thread started for ID: a199feef-8e70-45e6-9ff5-536f6a716a87
+[2025-07-19 16:00:35,121] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:00:35] "POST /research/start HTTP/1.1" 200 -
+[2025-07-19 16:00:37,123] [BACKEND] [INFO] Mock research completed and stored for ID: a199feef-8e70-45e6-9ff5-536f6a716a87
+[2025-07-19 16:00:49,327] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:00:49] "GET /library/drafts HTTP/1.1" 200 -
+[2025-07-19 16:03:27,588] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 16:03:27,652] [BACKEND] [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.2:5001
+[2025-07-19 16:03:27,652] [BACKEND] [INFO] [33mPress CTRL+C to quit[0m
+[2025-07-19 16:03:27,654] [BACKEND] [INFO]  * Restarting with stat
+[2025-07-19 16:03:28,086] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 16:03:28,162] [BACKEND] [WARNING]  * Debugger is active!
+[2025-07-19 16:03:28,167] [BACKEND] [INFO]  * Debugger PIN: 424-838-864
+[2025-07-19 16:04:34,252] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:04:34] "GET /health HTTP/1.1" 200 -
+[2025-07-19 16:07:26,351] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:07:26] "GET /library/drafts HTTP/1.1" 200 -
+[2025-07-19 16:07:26,353] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:07:26] "GET /library/drafts HTTP/1.1" 200 -
+[2025-07-19 16:07:37,049] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:07:37] "GET /library/drafts HTTP/1.1" 200 -
+[2025-07-19 16:07:37,361] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:07:37] "GET /library/drafts HTTP/1.1" 200 -
+[2025-07-19 16:08:04,295] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:08:04] "GET /library/drafts HTTP/1.1" 200 -
+[2025-07-19 16:08:04,562] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:08:04] "GET /library/drafts HTTP/1.1" 200 -
+[2025-07-19 16:08:07,951] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:08:07] "GET /latex/templates HTTP/1.1" 200 -
+[2025-07-19 16:08:08,217] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:08:08] "GET /latex/templates HTTP/1.1" 200 -
+[2025-07-19 16:09:12,712] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:12] "GET /latex/templates HTTP/1.1" 200 -
+[2025-07-19 16:09:12,966] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:12] "GET /latex/templates HTTP/1.1" 200 -
+[2025-07-19 16:09:16,837] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:16] "OPTIONS /research/start HTTP/1.1" 200 -
+[2025-07-19 16:09:17,099] [BACKEND] [INFO] Research started - Query: 'api'
+[2025-07-19 16:09:17,100] [BACKEND] [INFO] Generated research ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:17,103] [BACKEND] [INFO] Mock research processing started for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:17,104] [BACKEND] [INFO] Research thread started for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:17,105] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:17] "POST /research/start HTTP/1.1" 200 -
+[2025-07-19 16:09:17,152] [BACKEND] [INFO] Research results requested for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:17,153] [BACKEND] [INFO] Research results not found for ID: 9da851da-62bf-4e23-8c89-748fa171b95a - Status: processing
+[2025-07-19 16:09:17,155] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:17] "GET /research/results/9da851da-62bf-4e23-8c89-748fa171b95a HTTP/1.1" 200 -
+[2025-07-19 16:09:17,428] [BACKEND] [INFO] Research results requested for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:17,429] [BACKEND] [INFO] Research results not found for ID: 9da851da-62bf-4e23-8c89-748fa171b95a - Status: processing
+[2025-07-19 16:09:17,430] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:17] "GET /research/results/9da851da-62bf-4e23-8c89-748fa171b95a HTTP/1.1" 200 -
+[2025-07-19 16:09:18,210] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:18] "GET /health HTTP/1.1" 200 -
+[2025-07-19 16:09:18,212] [BACKEND] [INFO] Research results requested for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:18,214] [BACKEND] [INFO] Research results not found for ID: 9da851da-62bf-4e23-8c89-748fa171b95a - Status: processing
+[2025-07-19 16:09:18,219] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:18] "GET /research/results/9da851da-62bf-4e23-8c89-748fa171b95a HTTP/1.1" 200 -
+[2025-07-19 16:09:18,586] [BACKEND] [INFO] Research results requested for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:18,588] [BACKEND] [INFO] Research results not found for ID: 9da851da-62bf-4e23-8c89-748fa171b95a - Status: processing
+[2025-07-19 16:09:18,590] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:18] "GET /research/results/9da851da-62bf-4e23-8c89-748fa171b95a HTTP/1.1" 200 -
+[2025-07-19 16:09:18,857] [BACKEND] [INFO] Research results requested for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:18,858] [BACKEND] [INFO] Research results not found for ID: 9da851da-62bf-4e23-8c89-748fa171b95a - Status: processing
+[2025-07-19 16:09:18,860] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:18] "GET /research/results/9da851da-62bf-4e23-8c89-748fa171b95a HTTP/1.1" 200 -
+[2025-07-19 16:09:19,105] [BACKEND] [INFO] Mock research completed and stored for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:19,253] [BACKEND] [INFO] Research results requested for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:19,255] [BACKEND] [INFO] Research results found for ID: 9da851da-62bf-4e23-8c89-748fa171b95a - Status: completed
+[2025-07-19 16:09:19,256] [BACKEND] [INFO] Returning formatted research results for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:19,258] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:19] "GET /research/results/9da851da-62bf-4e23-8c89-748fa171b95a HTTP/1.1" 200 -
+[2025-07-19 16:09:19,593] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:19] "OPTIONS /library/save-draft HTTP/1.1" 200 -
+[2025-07-19 16:09:19,764] [BACKEND] [INFO] Research results requested for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:19,765] [BACKEND] [INFO] Research results found for ID: 9da851da-62bf-4e23-8c89-748fa171b95a - Status: completed
+[2025-07-19 16:09:19,765] [BACKEND] [INFO] Returning formatted research results for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:19,769] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:19] "GET /research/results/9da851da-62bf-4e23-8c89-748fa171b95a HTTP/1.1" 200 -
+[2025-07-19 16:09:19,858] [BACKEND] [INFO] Save draft request received - Title: 'Research: api (ID: 9da851da)'
+[2025-07-19 16:09:19,859] [BACKEND] [INFO] Draft saved successfully - ID: 352cfe6c-0031-4d6b-911d-12cd3b9c8b2a, Title: 'Research: api (ID: 9da851da)'
+[2025-07-19 16:09:19,862] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:19] "[35m[1mPOST /library/save-draft HTTP/1.1[0m" 201 -
+[2025-07-19 16:09:19,918] [BACKEND] [INFO] Research results requested for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:19,919] [BACKEND] [INFO] Research results found for ID: 9da851da-62bf-4e23-8c89-748fa171b95a - Status: completed
+[2025-07-19 16:09:19,920] [BACKEND] [INFO] Returning formatted research results for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:19,922] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:19] "GET /research/results/9da851da-62bf-4e23-8c89-748fa171b95a HTTP/1.1" 200 -
+[2025-07-19 16:09:20,091] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:20] "GET /library/drafts HTTP/1.1" 200 -
+[2025-07-19 16:09:20,198] [BACKEND] [INFO] Research results requested for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:20,198] [BACKEND] [INFO] Research results found for ID: 9da851da-62bf-4e23-8c89-748fa171b95a - Status: completed
+[2025-07-19 16:09:20,199] [BACKEND] [INFO] Returning formatted research results for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:20,201] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:20] "GET /research/results/9da851da-62bf-4e23-8c89-748fa171b95a HTTP/1.1" 200 -
+[2025-07-19 16:09:20,245] [BACKEND] [INFO] Research results requested for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:20,246] [BACKEND] [INFO] Research results found for ID: 9da851da-62bf-4e23-8c89-748fa171b95a - Status: completed
+[2025-07-19 16:09:20,247] [BACKEND] [INFO] Returning formatted research results for ID: 9da851da-62bf-4e23-8c89-748fa171b95a
+[2025-07-19 16:09:20,249] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:09:20] "GET /research/results/9da851da-62bf-4e23-8c89-748fa171b95a HTTP/1.1" 200 -
+[2025-07-19 16:13:05,369] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:13:05] "GET /latex/templates HTTP/1.1" 200 -
+[2025-07-19 16:13:05,370] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:13:05] "GET /library/drafts HTTP/1.1" 200 -
+[2025-07-19 16:13:05,373] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:13:05] "GET /latex/templates HTTP/1.1" 200 -
+[2025-07-19 16:13:05,377] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:13:05] "GET /library/drafts HTTP/1.1" 200 -
+[2025-07-19 16:24:44,419] [BACKEND] [INFO]  * Detected change in 'D:\\deepwebreserch\\DeepWebResearcher\\research_api.py', reloading
+[2025-07-19 16:24:44,691] [BACKEND] [INFO]  * Restarting with stat
+[2025-07-19 16:24:45,171] [BACKEND] [INFO]  * Detected change in 'D:\\deepwebreserch\\DeepWebResearcher\\research_api.py', reloading
+[2025-07-19 16:24:45,481] [BACKEND] [INFO]  * Restarting with stat
+[2025-07-19 16:24:46,179] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 16:24:46,206] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 16:24:46,242] [BACKEND] [WARNING]  * Debugger is active!
+[2025-07-19 16:24:46,247] [BACKEND] [INFO]  * Debugger PIN: 424-838-864
+[2025-07-19 16:24:46,256] [BACKEND] [WARNING]  * Debugger is active!
+[2025-07-19 16:24:46,260] [BACKEND] [INFO]  * Debugger PIN: 424-838-864
+[2025-07-19 16:24:49,280] [BACKEND] [INFO]  * Detected change in 'D:\\deepwebreserch\\DeepWebResearcher\\research_api.py', reloading
+[2025-07-19 16:24:49,288] [BACKEND] [INFO]  * Detected change in 'D:\\deepwebreserch\\DeepWebResearcher\\research_api.py', reloading
+[2025-07-19 16:24:49,406] [BACKEND] [INFO]  * Restarting with stat
+[2025-07-19 16:24:49,419] [BACKEND] [INFO]  * Restarting with stat
+[2025-07-19 16:24:50,108] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 16:24:50,114] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 16:24:50,148] [BACKEND] [WARNING]  * Debugger is active!
+[2025-07-19 16:24:50,155] [BACKEND] [INFO]  * Debugger PIN: 424-838-864
+[2025-07-19 16:24:50,158] [BACKEND] [WARNING]  * Debugger is active!
+[2025-07-19 16:24:50,164] [BACKEND] [INFO]  * Debugger PIN: 424-838-864
+[2025-07-19 16:25:04,233] [BACKEND] [INFO]  * Detected change in 'D:\\deepwebreserch\\DeepWebResearcher\\app_with_auth.py', reloading
+[2025-07-19 16:25:04,243] [BACKEND] [INFO]  * Detected change in 'D:\\deepwebreserch\\DeepWebResearcher\\app_with_auth.py', reloading
+[2025-07-19 16:25:04,456] [BACKEND] [INFO]  * Restarting with stat
+[2025-07-19 16:25:04,477] [BACKEND] [INFO]  * Restarting with stat
+[2025-07-19 16:25:06,368] [BACKEND] [INFO] Running in FULL MODE - API keys detected.
+[2025-07-19 16:25:06,368] [BACKEND] [INFO] Running in FULL MODE - API keys detected.
+[2025-07-19 16:25:06,368] [BACKEND] [INFO] Research API module loaded successfully
+[2025-07-19 16:25:06,383] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 16:25:06,384] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 16:25:06,412] [BACKEND] [WARNING]  * Debugger is active!
+[2025-07-19 16:25:06,412] [BACKEND] [WARNING]  * Debugger is active!
+[2025-07-19 16:25:06,419] [BACKEND] [INFO]  * Debugger PIN: 424-838-864
+[2025-07-19 16:25:10,460] [BACKEND] [INFO]  * Detected change in 'D:\\deepwebreserch\\DeepWebResearcher\\app_with_auth.py', reloading
+[2025-07-19 16:25:10,464] [BACKEND] [INFO]  * Detected change in 'D:\\deepwebreserch\\DeepWebResearcher\\app_with_auth.py', reloading
+[2025-07-19 16:25:10,671] [BACKEND] [INFO]  * Restarting with stat
+[2025-07-19 16:25:10,672] [BACKEND] [INFO]  * Restarting with stat
+[2025-07-19 16:25:11,382] [BACKEND] [INFO] Running in FULL MODE - API keys detected.
+[2025-07-19 16:25:11,382] [BACKEND] [INFO] Research API module loaded successfully
+[2025-07-19 16:25:11,382] [BACKEND] [INFO] Research API module loaded successfully
+[2025-07-19 16:25:11,391] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 16:25:11,391] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 16:25:11,409] [BACKEND] [WARNING]  * Debugger is active!
+[2025-07-19 16:25:11,410] [BACKEND] [WARNING]  * Debugger is active!
+[2025-07-19 16:25:11,414] [BACKEND] [INFO]  * Debugger PIN: 424-838-864
+[2025-07-19 16:25:11,417] [BACKEND] [INFO]  * Debugger PIN: 424-838-864
+[2025-07-19 16:25:15,451] [BACKEND] [INFO]  * Detected change in 'D:\\deepwebreserch\\DeepWebResearcher\\app_with_auth.py', reloading
+[2025-07-19 16:25:15,451] [BACKEND] [INFO]  * Detected change in 'D:\\deepwebreserch\\DeepWebResearcher\\app_with_auth.py', reloading
+[2025-07-19 16:25:15,571] [BACKEND] [INFO]  * Restarting with stat
+[2025-07-19 16:25:15,572] [BACKEND] [INFO]  * Restarting with stat
+[2025-07-19 16:25:16,294] [BACKEND] [INFO] Running in FULL MODE - API keys detected.
+[2025-07-19 16:25:16,294] [BACKEND] [INFO] Running in FULL MODE - API keys detected.
+[2025-07-19 16:25:16,294] [BACKEND] [INFO] Research API module loaded successfully
+[2025-07-19 16:25:16,295] [BACKEND] [INFO] Research API module loaded successfully
+[2025-07-19 16:25:16,304] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 16:25:16,304] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 16:25:16,331] [BACKEND] [WARNING]  * Debugger is active!
+[2025-07-19 16:25:16,331] [BACKEND] [WARNING]  * Debugger is active!
+[2025-07-19 16:25:16,336] [BACKEND] [INFO]  * Debugger PIN: 424-838-864
+[2025-07-19 16:25:16,337] [BACKEND] [INFO]  * Debugger PIN: 424-838-864
+[2025-07-19 16:25:29,428] [BACKEND] [INFO]  * Detected change in 'D:\\deepwebreserch\\DeepWebResearcher\\app_with_auth.py', reloading
+[2025-07-19 16:25:29,429] [BACKEND] [INFO]  * Detected change in 'D:\\deepwebreserch\\DeepWebResearcher\\app_with_auth.py', reloading
+[2025-07-19 16:25:29,595] [BACKEND] [INFO]  * Restarting with stat
+[2025-07-19 16:25:29,598] [BACKEND] [INFO]  * Restarting with stat
+[2025-07-19 16:25:30,589] [BACKEND] [INFO] Running in FULL MODE - API keys detected.
+[2025-07-19 16:25:30,589] [BACKEND] [INFO] Research API module loaded successfully
+[2025-07-19 16:25:30,589] [BACKEND] [INFO] Research API module loaded successfully
+[2025-07-19 16:25:30,597] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 16:25:30,598] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 16:25:30,618] [BACKEND] [WARNING]  * Debugger is active!
+[2025-07-19 16:25:30,618] [BACKEND] [WARNING]  * Debugger is active!
+[2025-07-19 16:25:30,623] [BACKEND] [INFO]  * Debugger PIN: 424-838-864
+[2025-07-19 16:25:30,624] [BACKEND] [INFO]  * Debugger PIN: 424-838-864
+[2025-07-19 16:27:10,576] [BACKEND] [WARNING] Running in GUEST MODE - No API keys found. Research will return mock data.
+[2025-07-19 16:27:10,578] [BACKEND] [INFO] Research API module loaded successfully
+[2025-07-19 16:27:10,593] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 16:27:10,686] [BACKEND] [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.2:5001
+[2025-07-19 16:27:10,686] [BACKEND] [INFO] [33mPress CTRL+C to quit[0m
+[2025-07-19 16:27:10,692] [BACKEND] [INFO]  * Restarting with stat
+[2025-07-19 16:27:11,735] [BACKEND] [INFO] Running in FULL MODE - API keys detected.
+[2025-07-19 16:27:11,736] [BACKEND] [INFO] Research API module loaded successfully
+[2025-07-19 16:27:11,753] [BACKEND] [WARNING] python-dotenv could not parse statement starting at line 5
+[2025-07-19 16:27:11,784] [BACKEND] [WARNING]  * Debugger is active!
+[2025-07-19 16:27:11,790] [BACKEND] [INFO]  * Debugger PIN: 424-838-864
+[2025-07-19 16:27:21,570] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:21] "GET /latex/templates HTTP/1.1" 200 -
+[2025-07-19 16:27:21,574] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:21] "GET /library/drafts HTTP/1.1" 200 -
+[2025-07-19 16:27:21,576] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:21] "GET /latex/templates HTTP/1.1" 200 -
+[2025-07-19 16:27:21,580] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:21] "GET /library/drafts HTTP/1.1" 200 -
+[2025-07-19 16:27:26,994] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:26] "OPTIONS /research/start HTTP/1.1" 200 -
+[2025-07-19 16:27:27,321] [BACKEND] [INFO] Research started - Query: 'api', Style: 2
+[2025-07-19 16:27:27,322] [BACKEND] [INFO] Generated research ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:27,323] [BACKEND] [INFO] Research processing started for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:27,323] [BACKEND] [INFO] Research thread started for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:27,323] [BACKEND] [INFO] Starting research for query: 'api' with style: 2
+[2025-07-19 16:27:27,325] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:27] "POST /research/start HTTP/1.1" 200 -
+[2025-07-19 16:27:27,326] [BACKEND] [INFO] Making Tavily API call for web search
+[2025-07-19 16:27:27,588] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:27,589] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:27,591] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:27] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:27,652] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:27,653] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:27,655] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:27] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:28,347] [BACKEND] [ERROR] Tavily API error: 401 - {
+    "detail": {
+        "error": "Unauthorized: missing or invalid API key."
+    }
+}
+
+[2025-07-19 16:27:28,349] [BACKEND] [INFO] Making OpenRouter API call with model: mistralai/mistral-7b-instruct
+[2025-07-19 16:27:28,477] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:28,486] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:28,487] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:28] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:28,794] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:28,795] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:28,797] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:28] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:28,919] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:28,920] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:28,920] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:28] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:29,647] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:29,648] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:29,650] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:29] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:29,651] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:29,652] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:29,654] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:29] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:29,916] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:29,916] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:29,917] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:29] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:29,926] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:29,926] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:29,928] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:29] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:29,971] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:29,973] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:29,974] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:29] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:30,777] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:30,778] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:30,781] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:30,783] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:30] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:30,784] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:30,785] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:30,787] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:30] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:30,791] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:30,791] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:30,795] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:30,797] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:30] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:30,798] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:30] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:31,043] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:31,044] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:31,046] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:31,047] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:31,049] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:31] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:31,051] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:31] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:31,102] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:31,105] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:31,106] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:31,107] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:31] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:31,108] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:31,110] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:31] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:31,339] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:31,339] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:31,340] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:31] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:31,927] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:31,930] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:31,932] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:31,938] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:31] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:31,945] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:31,953] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:31] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:31,977] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:31,988] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:31,993] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:31,995] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:31] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:31,996] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:32,003] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:32] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:32,022] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:32,024] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:32,033] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:32,036] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:32] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:32,039] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:32,045] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:32] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:32,295] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:32,296] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:32,297] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:32] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:32,433] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:32,435] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:32,437] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:32] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:33,471] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:33,472] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:33,474] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:33] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:34,818] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:34,819] [BACKEND] [INFO] Research results not found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: processing
+[2025-07-19 16:27:34,820] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:34] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:35,459] [BACKEND] [INFO] OpenRouter API call successful
+[2025-07-19 16:27:35,460] [BACKEND] [INFO] Research completed for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: partial_success
+[2025-07-19 16:27:35,852] [BACKEND] [INFO] Research results requested for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026
+[2025-07-19 16:27:35,853] [BACKEND] [INFO] Research results found for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Status: completed
+[2025-07-19 16:27:35,853] [BACKEND] [INFO] Returning formatted research results for ID: 18e83af8-fc0d-4819-af9f-c8d169cda026 - Mode: full
+[2025-07-19 16:27:35,855] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:35] "GET /research/results/18e83af8-fc0d-4819-af9f-c8d169cda026 HTTP/1.1" 200 -
+[2025-07-19 16:27:36,186] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:36] "OPTIONS /library/save-draft HTTP/1.1" 200 -
+[2025-07-19 16:27:36,452] [BACKEND] [INFO] Save draft request received - Title: 'Research: api (ID: 18e83af8)'
+[2025-07-19 16:27:36,453] [BACKEND] [INFO] Draft saved successfully - ID: 2ce47d38-3978-4a9e-b968-4708f996cf23, Title: 'Research: api (ID: 18e83af8)'
+[2025-07-19 16:27:36,455] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:36] "[35m[1mPOST /library/save-draft HTTP/1.1[0m" 201 -
+[2025-07-19 16:27:36,499] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:27:36] "GET /library/drafts HTTP/1.1" 200 -
+[2025-07-19 16:28:01,379] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:28:01] "GET /latex/templates HTTP/1.1" 200 -
+[2025-07-19 16:28:01,696] [BACKEND] [INFO] 127.0.0.1 - - [19/Jul/2025 16:28:01] "GET /latex/templates HTTP/1.1" 200 -
