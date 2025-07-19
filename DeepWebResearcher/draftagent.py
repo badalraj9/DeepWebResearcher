@@ -26,7 +26,7 @@ TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 research_llm = ChatOpenAI(
     api_key=OPENROUTER_API_KEY,
     base_url="https://openrouter.ai/api/v1",
-    model="anthropic/claude-3.5-sonnet",  # Best quality model for research
+    model="mistralai/mixtral-8x7b-instruct",  # Excellent quality model for research
     temperature=0.1,
     max_tokens=4000
 )
@@ -34,7 +34,7 @@ research_llm = ChatOpenAI(
 fact_checker_llm = ChatOpenAI(
     api_key=OPENROUTER_API_KEY,
     base_url="https://openrouter.ai/api/v1",
-    model="anthropic/claude-3.5-sonnet",  # Best quality model for fact-checking
+    model="mistralai/mixtral-8x7b-instruct",  # Excellent quality model for fact-checking
     temperature=0.1,
     max_tokens=2000
 )
