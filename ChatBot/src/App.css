@@ -1,0 +1,705 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+
+.app {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, var(--background), var(--card));
+  position: relative;
+  overflow: hidden;
+}
+
+.app::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, var(--primary) 0%, transparent 50%);
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter, transform;
+  transition: all 300ms ease;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em var(--primary));
+  transform: scale(1.05);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em var(--primary));
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.read-the-docs {
+  color: var(--muted-foreground);
+  transition: color 0.2s ease;
+}
+
+.read-the-docs:hover {
+  color: var(--foreground);
+}
+
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  position: relative;
+}
+
+.app-container::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, var(--primary) 0%, transparent 70%);
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.main-content {
+  padding: 0 120px;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* Add smooth transitions for all interactive elements */
+button,
+input,
+textarea,
+select {
+  transition: all 0.2s ease;
+}
+
+/* Add hover effects for buttons */
+button {
+  position: relative;
+  overflow: hidden;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: var(--primary);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+}
+
+button:hover::after {
+  width: 200%;
+  height: 200%;
+  opacity: 0.1;
+}
+
+/* Mobile Menu Styles */
+.mobile-menu-container {
+  display: none;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: var(--background);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.mobile-menu-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.mobile-menu-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.mobile-menu-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Home Button - Simple logo in bottom-right */
+.home-logo {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 40;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.home-logo:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.home-logo:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* Ensure home button is visible on larger screens */
+@media (min-width: 768px) {
+  .home-logo {
+    display: flex !important;
+  }
+}
+
+/* Remove old desktop menu styles */
+.desktop-menu {
+  display: none !important;
+}
+
+/* Ensure fixed elements stay visible on mobile */
+@media (max-width: 768px) {
+  .mobile-menu-container {
+    display: block;
+  }
+
+  .fixed {
+    position: absolute;
+  }
+
+  .main-content {
+    padding: 0 16px;
+    padding-top: calc(3.5rem + 16px); /* Account for sticky header */
+  }
+  
+  .card {
+    padding: 1.5em;
+  }
+
+  /* Hide desktop menu elements */
+  .desktop-menu {
+    display: none;
+  }
+
+  /* Adjust app container for mobile */
+  .app-container {
+    padding-top: 0;
+  }
+
+  /* Improve mobile card layout */
+  .card {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  /* Adjust mobile typography */
+  .mobile-menu-title {
+    font-size: 1.125rem;
+  }
+
+  /* Add shadow to sticky header */
+  .mobile-menu-container {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Add slide-in animation for mobile menu */
+@keyframes slideInDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.mobile-menu-container {
+  animation: slideInDown 0.3s ease-out forwards;
+}
+
+/* Improve mobile touch targets */
+@media (max-width: 768px) {
+  button,
+  [role="button"],
+  a {
+    min-height: 44px; /* Minimum touch target size */
+    min-width: 44px;
+    padding: 0.5rem 1rem;
+  }
+
+  /* Improve spacing between elements */
+  .main-content > * + * {
+    margin-top: 1rem;
+  }
+}
+
+/* Add smooth transition for content shifting */
+.main-content {
+  transition: padding-top 0.3s ease;
+}
+
+/* Improve mobile scrolling */
+.app-container {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Add loading spinner animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--muted);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Add fade-in animation for content */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Page transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-transition-exit {
+  opacity: 1;
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 150ms, transform 150ms;
+}
+
+/* Force page updates */
+.route-content {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Keep the editor more stable */
+.editor-container {
+  min-height: 400px;
+}
+
+/* LaTeX Detailed Report Styles */
+.latex-report {
+  font-family: 'Times New Roman', serif;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.latex-report h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+  border-bottom: 3px solid #000;
+  padding-bottom: 1rem;
+}
+
+.latex-report h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #333;
+  padding-bottom: 0.5rem;
+}
+
+.latex-report h3 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.latex-report h4 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+.latex-report p {
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+.latex-report ul, .latex-report ol {
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+}
+
+.latex-report li {
+  margin-bottom: 0.5rem;
+}
+
+.latex-report blockquote {
+  border-left: 4px solid #666;
+  padding-left: 1rem;
+  margin-left: 0;
+  font-style: italic;
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.latex-report table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  border: 1px solid #ddd;
+}
+
+.latex-report th, .latex-report td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.latex-report th {
+  background: #f2f2f2;
+  font-weight: bold;
+}
+
+.latex-report .abstract {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  font-style: italic;
+}
+
+.latex-report .references {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 2px solid #333;
+}
+
+.latex-report .references h2 {
+  border-bottom: none;
+  margin-bottom: 1rem;
+}
+
+.latex-report .references ol {
+  list-style-type: decimal;
+  padding-left: 2rem;
+}
+
+.latex-report .references li {
+  margin-bottom: 0.75rem;
+  text-align: left;
+}
+
+/* Dark theme override for LaTeX reports */
+.dark .latex-report {
+  background: #1a1a1a;
+  color: #ffffff;
+  border: 1px solid #333;
+}
+
+.dark .latex-report h1,
+.dark .latex-report h2,
+.dark .latex-report h3,
+.dark .latex-report h4 {
+  color: #ffffff;
+}
+
+.dark .latex-report blockquote {
+  background: #2a2a2a;
+  border-left-color: #666;
+}
+
+.dark .latex-report .abstract {
+  background: #2a2a2a;
+  border-color: #444;
+}
+
+.dark .latex-report table {
+  border-color: #444;
+}
+
+.dark .latex-report th,
+.dark .latex-report td {
+  border-color: #444;
+}
+
+.dark .latex-report th {
+  background: #333;
+}
+
+/* LaTeX Executive Summary Styles */
+.latex-executive-summary {
+  font-family: 'Times New Roman', serif;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.latex-executive-summary h1 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 3px solid #000;
+  padding-bottom: 0.75rem;
+}
+
+.latex-executive-summary h2 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 2px solid #333;
+  padding-bottom: 0.25rem;
+}
+
+.latex-executive-summary h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.latex-executive-summary p {
+  margin-bottom: 0.75rem;
+  text-align: justify;
+  line-height: 1.7;
+}
+
+.latex-executive-summary ul, .latex-executive-summary ol {
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+}
+
+.latex-executive-summary li {
+  margin-bottom: 0.25rem;
+  line-height: 1.6;
+}
+
+.latex-executive-summary blockquote {
+  border-left: 4px solid #666;
+  padding-left: 1rem;
+  margin-left: 0;
+  font-style: italic;
+  background: #f9f9f9;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin: 1rem 0;
+}
+
+.latex-executive-summary table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75rem 0;
+  border: 1px solid #ddd;
+}
+
+.latex-executive-summary th, .latex-executive-summary td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.latex-executive-summary th {
+  background: #f2f2f2;
+  font-weight: bold;
+}
+
+.latex-executive-summary .executive-summary {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 1.25rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  font-style: italic;
+}
+
+.latex-executive-summary .key-findings {
+  background: #e8f4fd;
+  border: 1px solid #bee5eb;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+
+.latex-executive-summary .recommendations {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+
+.latex-executive-summary .conclusion {
+  background: #f0f8f0;
+  border: 1px solid #c3e6c3;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Dark theme override for LaTeX executive summary */
+.dark .latex-executive-summary {
+  background: #1a1a1a;
+  color: #ffffff;
+  border: 1px solid #333;
+}
+
+.dark .latex-executive-summary h1,
+.dark .latex-executive-summary h2,
+.dark .latex-executive-summary h3 {
+  color: #ffffff;
+}
+
+.dark .latex-executive-summary blockquote {
+  background: #2a2a2a;
+  border-left-color: #666;
+}
+
+.dark .latex-executive-summary .executive-summary {
+  background: #2a2a2a;
+  border-color: #444;
+}
+
+.dark .latex-executive-summary .key-findings {
+  background: #1a2a3a;
+  border-color: #2a4a6a;
+}
+
+.dark .latex-executive-summary .recommendations {
+  background: #2a2a2a;
+  border-color: #444;
+}
+
+.dark .latex-executive-summary .conclusion {
+  background: #1a3a1a;
+  border-color: #2a4a2a;
+}
+
+.dark .latex-executive-summary table {
+  border-color: #444;
+}
+
+.dark .latex-executive-summary th,
+.dark .latex-executive-summary td {
+  border-color: #444;
+}
+
+.dark .latex-executive-summary th {
+  background: #333;
+}
+
+
+
