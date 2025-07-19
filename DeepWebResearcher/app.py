@@ -233,6 +233,16 @@ def get_research_results(research_id):
 
 # Library management APIs with SQLite
 
+@app.route('/health', methods=['GET'])
+def health_check():
+    """Health check endpoint for deployment platforms"""
+    return jsonify({
+        "status": "healthy",
+        "timestamp": datetime.now().isoformat(),
+        "service": "DeepWebResearcher API",
+        "version": "1.0.0"
+    })
+
 @app.route('/debug/research-ids', methods=['GET'])
 def list_research_ids():
     """
