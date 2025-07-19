@@ -16,6 +16,13 @@
   align-items: center;
   min-height: 70vh;
   margin-top: 100px;
+  background: radial-gradient(
+    circle at center,
+    rgba(26, 26, 36, 0.3) 0%,
+    rgba(26, 26, 36, 0.1) 50%,
+    transparent 100%
+  );
+  backdrop-filter: blur(10px);
 }
 
 .search-hub {
@@ -110,12 +117,13 @@
 .search-hub.active {
   width: var(--hub-expanded-size);
   border-radius: 3000px;
-  backdrop-filter: blur(50px);
-  background: #1a1a24; /* Keep the same purple-tinted dark background */
+  backdrop-filter: blur(20px);
+  background: rgba(26, 26, 36, 0.98); /* More opaque when active */
   box-shadow: 
-    0 0 30px var(--hub-glow),
-    0 0 50px rgba(93, 63, 211, 0.15),
-    inset 0 0 20px rgba(93, 63, 211, 0.1);
+    0 0 40px var(--hub-glow),
+    0 0 80px rgba(93, 63, 211, 0.2),
+    inset 0 0 30px rgba(93, 63, 211, 0.2);
+  animation: activePulse 2s ease-in-out infinite;
 }
 
 .search-hub.active::before {
@@ -260,11 +268,12 @@
   background: transparent;
   border: none;
   outline: none;
-  color: white;
+  color: rgba(255, 255, 255, 0.95);
   font-size: 1.2rem;
   text-align: center;
   opacity: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: inputGlow 4s ease-in-out infinite;
 }
 
 .search-input.active {
@@ -326,9 +335,10 @@
   transform-style: preserve-3d;
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translate(-50%, -50%);
   z-index: 1;
+  animation: orbitFloat 4s ease-in-out infinite;
 }
 
 .orbital-ring.hidden {
@@ -397,9 +407,10 @@
   margin: -22.5px;
   cursor: pointer;
   transform-origin: center;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: auto;
   z-index: 5;
+  animation: iconFloat 3s ease-in-out infinite;
 }
 
 .category-icon .icon-content {
@@ -408,30 +419,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  background: linear-gradient(145deg, rgba(42, 42, 42, 0.95), rgba(26, 26, 26, 0.95));
   border-radius: 50%;
   font-size: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2),
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3),
               inset 0 2px 4px rgba(255, 255, 255, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(8px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(12px);
   transform-origin: center;
   position: relative;
   overflow: hidden;
   will-change: transform;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .category-icon:hover .icon-content {
-
-
-  background: linear-gradient(145deg, rgba(64, 64, 84, 0.6), rgba(45, 45, 72, 0.6));
-  border: 1px solid rgba(93, 63, 211, 0.2);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25),
-
-              inset 0 2px 4px rgba(93, 63, 211, 0.15);
+  background: linear-gradient(145deg, rgba(64, 64, 84, 0.8), rgba(45, 45, 72, 0.8));
+  border: 1px solid rgba(93, 63, 211, 0.4);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3),
+              0 0 20px rgba(93, 63, 211, 0.2),
+              inset 0 2px 4px rgba(93, 63, 211, 0.2);
   color: rgba(255, 255, 255, 1);
+  transform: scale(1.05);
+  animation: iconHoverPulse 0.6s ease-in-out;
 }
 
 .category-icon .icon-content svg {
@@ -641,21 +652,25 @@
 /* Loading state */
 .search-hub.loading {
   pointer-events: none;
+  animation: loadingPulse 1.5s ease-in-out infinite;
 }
 
 .search-hub.loading .search-input {
-  opacity: 0.7;
+  opacity: 0.8;
+  animation: inputPulse 2s ease-in-out infinite;
 }
 
 .orbital-ring.loading {
-  opacity: 0.5;
-  filter: blur(1px);
-  transition: all 0.3s ease;
+  opacity: 0.6;
+  filter: blur(0.5px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: loadingOrbit 2s ease-in-out infinite;
 }
 
 .orbital-ring.loading .category-icon {
   pointer-events: none;
-  filter: grayscale(0.7);
+  filter: grayscale(0.5);
+  animation: loadingIcon 1.5s ease-in-out infinite;
 }
 
 /* Additional Info Dialog Styles */
@@ -771,4 +786,105 @@
 @keyframes slideUp {
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+}
+
+/* Enhanced floating animations */
+@keyframes hubFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes activePulse {
+  0%, 100% { 
+    box-shadow: 
+      0 0 40px var(--hub-glow),
+      0 0 80px rgba(93, 63, 211, 0.2),
+      inset 0 0 30px rgba(93, 63, 211, 0.2);
+  }
+  50% { 
+    box-shadow: 
+      0 0 50px var(--hub-glow),
+      0 0 100px rgba(93, 63, 211, 0.3),
+      inset 0 0 40px rgba(93, 63, 211, 0.3);
+  }
+}
+
+@keyframes orbitFloat {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.02); }
+}
+
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-3px) scale(1.02); }
+}
+
+/* Enhanced pulse glow animation */
+@keyframes pulseGlow {
+  0%, 100% { 
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+/* Loading animations */
+@keyframes loadingPulse {
+  0%, 100% { 
+    box-shadow: 
+      0 0 30px var(--hub-glow),
+      0 0 60px rgba(93, 63, 211, 0.15),
+      inset 0 0 20px rgba(93, 63, 211, 0.15);
+  }
+  50% { 
+    box-shadow: 
+      0 0 40px var(--hub-glow),
+      0 0 80px rgba(93, 63, 211, 0.25),
+      inset 0 0 30px rgba(93, 63, 211, 0.25);
+  }
+}
+
+@keyframes inputPulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes loadingOrbit {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    opacity: 0.6;
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.05) rotate(180deg);
+    opacity: 0.8;
+  }
+}
+
+@keyframes loadingIcon {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% { 
+    transform: scale(1.1) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+@keyframes inputGlow {
+  0%, 100% { 
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+  }
+  50% { 
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  }
+}
+
+@keyframes iconHoverPulse {
+  0% { transform: scale(1.05); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1.05); }
 }
