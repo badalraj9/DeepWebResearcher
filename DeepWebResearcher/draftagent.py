@@ -26,17 +26,17 @@ TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 research_llm = ChatOpenAI(
     api_key=OPENROUTER_API_KEY,
     base_url="https://openrouter.ai/api/v1",
-    model="openai/gpt-3.5-turbo",  # More reliable model, less likely to be rate-limited
+    model="anthropic/claude-3.5-sonnet",  # Best quality model for research
     temperature=0.1,
-    max_tokens=4000  # Reduced from default to stay within credit limits
+    max_tokens=4000
 )
 
 fact_checker_llm = ChatOpenAI(
     api_key=OPENROUTER_API_KEY,
     base_url="https://openrouter.ai/api/v1",
-    model="openai/gpt-3.5-turbo",  # More reliable model, less likely to be rate-limited
+    model="anthropic/claude-3.5-sonnet",  # Best quality model for fact-checking
     temperature=0.1,
-    max_tokens=2000  # Smaller limit for fact-checking
+    max_tokens=2000
 )
 
 # Initialize Tavily search with fallback
@@ -393,17 +393,32 @@ def conduct_research(state: ResearchState) -> ResearchState:
     print(f"Conducting research on: {state['optimized_query']}")
     
     research_prompt = ChatPromptTemplate.from_template("""
-    You are a thorough research assistant. Your task is to provide comprehensive information about the following query:
+    You are an expert research assistant specializing in comprehensive, detailed analysis. Your task is to provide in-depth information about the following query:
     
     {query}
     
-    Please conduct detailed research and provide a well-structured response that:
-    1. Covers all important aspects of the topic
-    2. Includes relevant facts, data, and context
-    3. Presents different perspectives when applicable
-    4. Cites sources where appropriate
+    Please conduct thorough research and provide a detailed, well-structured response that includes:
     
-    Your response should be thorough, accurate, and well-organized.
+    1. **Core Concepts**: Define and explain the fundamental concepts related to the query
+    2. **Technical Details**: Provide specific technical information, algorithms, methodologies, or frameworks when relevant
+    3. **Real-world Examples**: Include concrete examples, case studies, or practical applications
+    4. **Current State**: Discuss the current state of the field, recent developments, or trends
+    5. **Challenges and Solutions**: Address common challenges and their solutions
+    6. **Best Practices**: Include industry best practices, guidelines, or recommendations
+    7. **Different Perspectives**: Present multiple viewpoints or approaches when applicable
+    8. **Data and Statistics**: Include relevant data, statistics, or research findings
+    9. **Implementation Details**: Provide specific implementation guidance when relevant
+    10. **Future Outlook**: Discuss future trends, developments, or implications
+    
+    Your response should be:
+    - Highly detailed and comprehensive
+    - Technically accurate and precise
+    - Well-organized with clear sections
+    - Include specific examples and references
+    - Address the query from multiple angles
+    - Provide actionable insights and recommendations
+    
+    Focus on delivering substantial, valuable content that goes beyond surface-level information.
     """)
     
     try:
@@ -555,14 +570,32 @@ def create_draft_content(state: ResearchState) -> ResearchState:
     print(f"Drafting content in {state['content_style']} style...")
     
     draft_prompt = ChatPromptTemplate.from_template("""
-    Based on the following research results, create a {style} content where you will draft info only about the query {optimized_query} and the research findings. Not about the process like fact checking query optimization just use the Research findings:
-    {research} and Fact-check report:
-    {fact_check} to generate this {style} based draft having the References:
-    {references} at the end of the draft
-    The content should be informative, engaging, and suitable for the target audience.
+    Based on the comprehensive research results, create a high-quality {style} content about the query: {optimized_query}
     
-    Please structure the draft in a clear, engaging {style} format.
+    Research findings: {research}
+    Fact-check report: {fact_check}
+    References: {references}
+    
+    Your task is to create engaging, informative content that:
+    
+    1. **Focuses on the core topic** - Address the query directly with detailed, relevant information
+    2. **Uses the research findings** - Incorporate the comprehensive research data and insights
+    3. **Maintains accuracy** - Consider the fact-check report to ensure information is reliable
+    4. **Provides value** - Deliver actionable insights, practical examples, and useful information
+    5. **Engages the audience** - Use clear, compelling writing that holds reader interest
+    6. **Includes proper references** - Cite sources appropriately at the end
+    
+    Content requirements:
+    - Write in a {style} format appropriate for the target audience
+    - Include specific examples, case studies, or practical applications
+    - Provide technical details when relevant
+    - Address common questions or concerns about the topic
+    - Offer actionable advice or recommendations
+    - Use clear, professional language
+    - Structure content logically with proper headings and sections
+    
     Do not include any <think> or </think> tags in your response.
+    Focus on delivering substantial, valuable content that provides real insights and practical value to readers.
     """)
     
     chain = draft_prompt | research_llm | StrOutputParser()
