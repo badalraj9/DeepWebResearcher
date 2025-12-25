@@ -26,7 +26,7 @@ TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 research_llm = ChatOpenAI(
     api_key=OPENROUTER_API_KEY,
     base_url="https://openrouter.ai/api/v1",
-    model="mistralai/mixtral-8x7b-instruct",  # Excellent quality model for research
+    model="xiaomi/mimo-v2-flash:free",  # Excellent quality model for research
     temperature=0.1,
     max_tokens=4000
 )
@@ -34,7 +34,7 @@ research_llm = ChatOpenAI(
 fact_checker_llm = ChatOpenAI(
     api_key=OPENROUTER_API_KEY,
     base_url="https://openrouter.ai/api/v1",
-    model="mistralai/mixtral-8x7b-instruct",  # Excellent quality model for fact-checking
+    model="xiaomi/mimo-v2-flash:free",  # Excellent quality model for fact-checking
     temperature=0.1,
     max_tokens=2000
 )
@@ -52,6 +52,29 @@ except Exception as e:
     tavily_search = None
     tavily_available = False
     print(f"Warning: Could not initialize Tavily search: {str(e)}")
+
+def clean_json_output(text: str) -> str:
+    """
+    Clean LLM output to extract just the JSON part.
+    Removes <think> tags, markdown code blocks, and other noise.
+    """
+    if not text:
+        return ""
+
+    # Remove <think> tags and content
+    text = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL)
+
+    # Extract JSON from markdown code blocks
+    json_match = re.search(r'```(?:json)?\s*([\s\S]*?)\s*```', text)
+    if json_match:
+        return json_match.group(1).strip()
+
+    # If no code blocks, try to find the first [ or { and the last ] or }
+    text = text.strip()
+    if (text.startswith('[') and text.endswith(']')) or (text.startswith('{') and text.endswith('}')):
+        return text
+
+    return text
 
 summarize_prompt = ChatPromptTemplate.from_template("""
 You are a research assistant that summarizes and structures search results.
@@ -142,10 +165,25 @@ def extract_claims(research_output):
         2. The importance of verifying this claim (high/medium/low)
 
         Format your response as a JSON array of objects with "claim" and "importance" fields.
+        Example:
+        [
+            {{"claim": "The sky is blue.", "importance": "low"}},
+            {{"claim": "Water boils at 100C at sea level.", "importance": "high"}}
+        ]
+
+        IMPORTANT: Return ONLY the JSON array. Do not include markdown formatting or explanations.
         """)
 
-        chain = extraction_prompt | fact_checker_llm | JsonOutputParser()
-        result = chain.invoke({"research_output": research_output})
+        chain = extraction_prompt | fact_checker_llm | StrOutputParser()
+        result_text = chain.invoke({"research_output": research_output})
+
+        # Clean and parse JSON
+        cleaned_text = clean_json_output(result_text)
+        try:
+            result = json.loads(cleaned_text)
+        except json.JSONDecodeError:
+            print(f"Failed to parse claims JSON: {cleaned_text[:100]}...")
+            return [{"claim": "Error parsing claims", "importance": "low"}]
         
         # Ensure we return a list
         if not isinstance(result, list):
@@ -187,7 +225,15 @@ Format your response as a JSON object with the following structure:
 
 # Function to verify a single claim
 def verify_claim(claim):
-    search_results = fact_verification_search.invoke(claim)
+    try:
+        if fact_verification_search:
+            search_results = fact_verification_search.invoke(claim)
+        else:
+             # Fallback if no search tool
+            search_results = []
+    except Exception as e:
+        print(f"Search error for claim '{claim}': {e}")
+        search_results = []
 
     verification_data = "\n\n".join([
         f"Source: {result.get('url', 'Unknown')}\n"
@@ -226,8 +272,12 @@ def verify_claim(claim):
     """)
 
     try:
-        chain = modified_prompt | fact_checker_llm | JsonOutputParser()
-        result = chain.invoke({"claim": claim, "verification_data": verification_data})
+        chain = modified_prompt | fact_checker_llm | StrOutputParser()
+        result_text = chain.invoke({"claim": claim, "verification_data": verification_data})
+
+        # Clean and parse
+        cleaned_text = clean_json_output(result_text)
+        result = json.loads(cleaned_text)
         return result
     except Exception as e:
         print(f"Error parsing fact-check response: {str(e)}")
@@ -254,22 +304,33 @@ def extract_references(verification_results):
 # query optimization function
 def optimize_query_directly(query: str) -> str:
     optimization_prompt = ChatPromptTemplate.from_template("""
-    You are a query optimization expert. Your task is to transform natural language queries into 
-    detailed, domain-specific optimized queries that can be processed by specialized systems.
+    You are a query optimization expert. Your task is to transform the user's query into a
+    concise, effective search string suitable for a standard search engine.
 
     Original query: {query}
 
     Please provide an optimized version of this query that:
-    1. Is more specific and detailed
-    2. Includes relevant domain terminology
-    3. Is structured for better processing by downstream systems
-    4. Maintains the original intent of the query
+    1. Removes conversational language (e.g., "tell me about", "what is")
+    2. Focuses on key concepts and domain terminology
+    3. Is a simple string (no boolean operators like AND/OR/NOT unless absolutely necessary)
+    4. Is short enough to be processed by standard search APIs
 
-    Optimized query:
+    IMPORTANT: Return ONLY the optimized query string. Do not include any explanations, labels, or markdown formatting.
+    Just the query text itself.
     """)
     
     chain = optimization_prompt | research_llm | StrOutputParser()
-    return chain.invoke({"query": query})
+    result = chain.invoke({"query": query})
+
+    # Clean up any potential leftover artifacts
+    cleaned_result = clean_json_output(result)
+    # Remove common prefixes if they still appear
+    cleaned_result = re.sub(r'^(Optimized query:|Query:|Here is the optimized query:)\s*', '', cleaned_result, flags=re.IGNORECASE).strip()
+    # Remove quotes if the entire string is quoted
+    if (cleaned_result.startswith('"') and cleaned_result.endswith('"')) or (cleaned_result.startswith("'") and cleaned_result.endswith("'")):
+        cleaned_result = cleaned_result[1:-1]
+
+    return cleaned_result
 
 #  content style selection functions
 def select_content_style(style_number: int) -> str:
@@ -424,14 +485,24 @@ def conduct_research(state: ResearchState) -> ResearchState:
     try:
         if tavily_available and tavily_search:
             # Use Tavily search if available
-            search_results = tavily_search.invoke(state["optimized_query"])
+            try:
+                search_results = tavily_search.invoke(state["optimized_query"])
+            except Exception as e:
+                print(f"Primary search failed: {e}. Retrying with original query...")
+                # Fallback to original query if optimized one fails (e.g. 400 Bad Request)
+                search_results = tavily_search.invoke(state["query"])
             
             # Check if search_results is a list of dictionaries as expected
             if not isinstance(search_results, list):
                 print(f"Warning: Expected list of search results, got {type(search_results)}")
                 # Convert to expected format if possible
                 if isinstance(search_results, str):
-                    search_results = [{"url": "N/A", "title": "Search Result", "content": search_results}]
+                    try:
+                        # Try to parse string as JSON
+                        search_results = json.loads(search_results)
+                    except:
+                        # Fallback
+                        search_results = [{"url": "N/A", "title": "Search Result", "content": search_results}]
                 else:
                     # Default empty list 
                     search_results = []

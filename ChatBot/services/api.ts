@@ -1,6 +1,6 @@
 // API service for communicating with the DeepWebResearcher backend
 
-const API_BASE_URL = 'https://deepwebresearcher-production.up.railway.app'; // Railway deployed backend
+const API_BASE_URL = 'http://localhost:5000'; // Local backend
 
 export interface ResearchResponse {
   research_id: string;
