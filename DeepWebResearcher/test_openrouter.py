@@ -15,15 +15,17 @@ def test_openrouter():
     
     try:
         # Test OpenRouter connection
+        print(f"Testing with key: {api_key[:5]}...{api_key[-5:]}")
         llm = ChatOpenAI(
             api_key=api_key,
             base_url="https://openrouter.ai/api/v1",
-            model="mistralai/mixtral-8x7b-instruct",  # Correct model ID for OpenRouter
+            model="xiaomi/mimo-v2-flash:free",  # User specified model
             temperature=0.1,
-            max_tokens=1000  # Small limit for testing
+            max_tokens=1000
         )
         
         # Simple test message
+        print("Sending request...")
         response = llm.invoke("Hello! Please respond with 'OpenRouter is working correctly' if you can see this message.")
         
         print("✅ OpenRouter integration test successful!")
@@ -35,4 +37,4 @@ def test_openrouter():
         return False
 
 if __name__ == "__main__":
-    test_openrouter() 
+    test_openrouter()
