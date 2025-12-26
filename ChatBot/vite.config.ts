@@ -9,6 +9,7 @@ export default defineConfig({
   plugins: [
     react(),
     viteCompression(), // Default is gzip
+    viteCompression({ algorithm: 'brotliCompress', ext: '.br' }), // Add Brotli
     visualizer({
       open: false,
       gzipSize: true,
