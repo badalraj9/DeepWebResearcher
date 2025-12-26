@@ -5,11 +5,8 @@ import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from
 import { BubbleSelector } from './components/BubbleSelector';
 import { BubbleSelector2 } from './components/BubbleSelector2';
 import { NavMenu } from './components/NavMenu';
-import HomePage from './pages/HomePage';
-import LibraryPage from './pages/LibraryPage';
-import EditorPage from './pages/EditorPage';
-import InstructionsPage from './pages/InstructionsPage';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
+import { LoadingFallback } from './components/LoadingFallback';
 import { LibraryItem } from './types';
 import './App.css';
 import { AnimatePresence } from 'framer-motion';
@@ -34,6 +31,11 @@ const mapContentStyleToCategory = (contentStyle: string): string => {
       return 'blog-style';
   }
 };
+
+const HomePage = lazy(() => import('./pages/HomePage'));
+const LibraryPage = lazy(() => import('./pages/LibraryPage'));
+const EditorPage = lazy(() => import('./pages/EditorPage'));
+const InstructionsPage = lazy(() => import('./pages/InstructionsPage'));
 
 // App wrapper component to handle router context
 const AppRouter = () => {
@@ -714,64 +716,66 @@ const ChatDemo = () => {
           <AnimatePresence mode="wait">
             <div className="flex-1 flex justify-center">
               <div className="relative w-full md:w-[60%] min-h-screen">
-                <Routes location={location} key={location.pathname}>
-                  <Route 
-                    path="/" 
-                    element={<HomePage onSearch={handleSearchSubmit} />} 
-                  />
-                  <Route 
-                    path="/library" 
-                    element={
-                      <LibraryPage 
-                        libraryItems={libraryItems}
-                        categoryFilter={categoryFilter}
-                        setCategoryFilter={setCategoryFilter}
-                        setSelectedItem={handleItemSelect}
-                        key={`library-all-${libraryItems.length}`}
-                      />
-                    } 
-                  />
-                  <Route 
-                    path="/library/:category" 
-                    element={
-                      <LibraryPage 
-                        libraryItems={libraryItems}
-                        categoryFilter={categoryFilter}
-                        setCategoryFilter={setCategoryFilter}
-                        setSelectedItem={handleItemSelect}
-                        key={`library-${categoryFilter}-${libraryItems.length}`}
-                      />
-                    } 
-                  />
-                  <Route 
-                    path="/editor/research/:researchId" 
-                    element={
-                      <EditorPage 
-                        selectedItem={selectedItem}
-                        isLoading={isLoading}
-                        onSearch={handleEditorSearch}
-                        onSaveDraft={handleSaveDraft}
-                        isResearchResult={true}
-                      />
-                    } 
-                  />
-                  <Route 
-                    path="/editor/:itemId" 
-                    element={
-                      <EditorPage 
-                        selectedItem={selectedItem}
-                        isLoading={isLoading}
-                        onSearch={handleEditorSearch}
-                        onSaveDraft={handleSaveDraft}
-                        isResearchResult={false}
-                      />
-                    } 
-                  />
-                  <Route 
-                    path="/instructions" 
-                    element={<InstructionsPage />} 
-                  />
-                </Routes>
+                <Suspense fallback={<LoadingFallback />}>
+                  <Routes location={location} key={location.pathname}>
+                    <Route
+                      path="/"
+                      element={<HomePage onSearch={handleSearchSubmit} />}
+                    />
+                    <Route
+                      path="/library"
+                      element={
+                        <LibraryPage
+                          libraryItems={libraryItems}
+                          categoryFilter={categoryFilter}
+                          setCategoryFilter={setCategoryFilter}
+                          setSelectedItem={handleItemSelect}
+                          key={`library-all-${libraryItems.length}`}
+                        />
+                      }
+                    />
+                    <Route
+                      path="/library/:category"
+                      element={
+                        <LibraryPage
+                          libraryItems={libraryItems}
+                          categoryFilter={categoryFilter}
+                          setCategoryFilter={setCategoryFilter}
+                          setSelectedItem={handleItemSelect}
+                          key={`library-${categoryFilter}-${libraryItems.length}`}
+                        />
+                      }
+                    />
+                    <Route
+                      path="/editor/research/:researchId"
+                      element={
+                        <EditorPage
+                          selectedItem={selectedItem}
+                          isLoading={isLoading}
+                          onSearch={handleEditorSearch}
+                          onSaveDraft={handleSaveDraft}
+                          isResearchResult={true}
+                        />
+                      }
+                    />
+                    <Route
+                      path="/editor/:itemId"
+                      element={
+                        <EditorPage
+                          selectedItem={selectedItem}
+                          isLoading={isLoading}
+                          onSearch={handleEditorSearch}
+                          onSaveDraft={handleSaveDraft}
+                          isResearchResult={false}
+                        />
+                      }
+                    />
+                    <Route
+                      path="/instructions"
+                      element={<InstructionsPage />}
+                    />
+                  </Routes>
+                </Suspense>
               </div>
             </div>
           </AnimatePresence>
