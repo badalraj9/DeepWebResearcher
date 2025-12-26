@@ -15,4 +15,11 @@ langchain-community
 langchain-core
 langgraph
 tavily-python
-openai 
+openai
+playwright
+parsel
+beautifulsoup4
+fake-useragent
+html2text
+h2
+duckduckgo-search

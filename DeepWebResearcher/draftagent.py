@@ -10,11 +10,30 @@ import json
 import re
 from langgraph.graph import StateGraph, END
 
+# Import the new scrapers
+try:
+    from scraper.google_search import GoogleSearcher
+    from scraper.web_browser import WebBrowser
+except ImportError:
+    # Handle direct execution where module path might differ
+    try:
+        from DeepWebResearcher.scraper.google_search import GoogleSearcher
+        from DeepWebResearcher.scraper.web_browser import WebBrowser
+    except ImportError:
+        # Fallback for when running from the same directory
+        import sys
+        sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+        from scraper.google_search import GoogleSearcher
+        from scraper.web_browser import WebBrowser
 
 load_dotenv()
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
+
+# Initialize custom scrapers
+google_searcher = GoogleSearcher()
+web_browser = WebBrowser()
 
 # Configure OpenRouter client
 # You can change the model to a different option if needed:
@@ -226,11 +245,12 @@ Format your response as a JSON object with the following structure:
 # Function to verify a single claim
 def verify_claim(claim):
     try:
-        if fact_verification_search:
+        # Use our Google Searcher first as it's the "free" option
+        search_results = google_searcher.search(claim, num_results=5)
+
+        if not search_results and fact_verification_search:
+            # Fallback to Tavily if Google/DDG fails and Tavily is available
             search_results = fact_verification_search.invoke(claim)
-        else:
-             # Fallback if no search tool
-            search_results = []
     except Exception as e:
         print(f"Search error for claim '{claim}': {e}")
         search_results = []
@@ -238,7 +258,7 @@ def verify_claim(claim):
     verification_data = "\n\n".join([
         f"Source: {result.get('url', 'Unknown')}\n"
         f"Title: {result.get('title', 'No title')}\n"
-        f"Content: {result.get('content', 'No content')}"
+        f"Content: {result.get('snippet', result.get('content', 'No content'))}"
         for result in search_results
     ])
 
@@ -295,6 +315,7 @@ def extract_references(verification_results):
     references = []
     for i, result in enumerate(verification_results, 1):
         verification_data = result.get("verification_data", "")
+        # Try to find Source patterns
         sources = re.findall(r"Source: (https?://[^\n]+)", verification_data)
         for source in sources:
             if source not in [ref.split(". ")[1] for ref in references]:
@@ -453,73 +474,75 @@ def optimize_query(state: ResearchState) -> ResearchState:
 def conduct_research(state: ResearchState) -> ResearchState:
     print(f"Conducting research on: {state['optimized_query']}")
     
-    research_prompt = ChatPromptTemplate.from_template("""
-    You are an expert research assistant specializing in comprehensive, detailed analysis. Your task is to provide in-depth information about the following query:
+    # Check if this is a direct URL scraping request
+    is_url = re.match(r'https?://[^\s]+', state['query'].strip())
     
-    {query}
-    
-    Please conduct thorough research and provide a detailed, well-structured response that includes:
-    
-    1. **Core Concepts**: Define and explain the fundamental concepts related to the query
-    2. **Technical Details**: Provide specific technical information, algorithms, methodologies, or frameworks when relevant
-    3. **Real-world Examples**: Include concrete examples, case studies, or practical applications
-    4. **Current State**: Discuss the current state of the field, recent developments, or trends
-    5. **Challenges and Solutions**: Address common challenges and their solutions
-    6. **Best Practices**: Include industry best practices, guidelines, or recommendations
-    7. **Different Perspectives**: Present multiple viewpoints or approaches when applicable
-    8. **Data and Statistics**: Include relevant data, statistics, or research findings
-    9. **Implementation Details**: Provide specific implementation guidance when relevant
-    10. **Future Outlook**: Discuss future trends, developments, or implications
-    
-    Your response should be:
-    - Highly detailed and comprehensive
-    - Technically accurate and precise
-    - Well-organized with clear sections
-    - Include specific examples and references
-    - Address the query from multiple angles
-    - Provide actionable insights and recommendations
-    
-    Focus on delivering substantial, valuable content that goes beyond surface-level information.
-    """)
+    research_results = []
     
     try:
-        if tavily_available and tavily_search:
-            # Use Tavily search if available
-            try:
-                search_results = tavily_search.invoke(state["optimized_query"])
-            except Exception as e:
-                print(f"Primary search failed: {e}. Retrying with original query...")
-                # Fallback to original query if optimized one fails (e.g. 400 Bad Request)
-                search_results = tavily_search.invoke(state["query"])
-            
-            # Check if search_results is a list of dictionaries as expected
-            if not isinstance(search_results, list):
-                print(f"Warning: Expected list of search results, got {type(search_results)}")
-                # Convert to expected format if possible
-                if isinstance(search_results, str):
-                    try:
-                        # Try to parse string as JSON
-                        search_results = json.loads(search_results)
-                    except:
-                        # Fallback
-                        search_results = [{"url": "N/A", "title": "Search Result", "content": search_results}]
-                else:
-                    # Default empty list 
-                    search_results = []
-            
-            # Summarize the search results
-            research_output = summarize_search_results(state["optimized_query"], search_results)
+        if is_url:
+            print(f"Detected URL. Using WebBrowser to scrape: {state['query']}")
+            content = web_browser.scrape_url(state['query'])
+            research_results = [{
+                "url": state['query'],
+                "title": "Direct URL Scrape",
+                "content": content,
+                "source": "Web Browser"
+            }]
         else:
-            # Fallback: Generate research content directly using LLM
-            print("Tavily not available, generating research content directly...")
-            chain = research_prompt | research_llm | StrOutputParser()
-            research_output = chain.invoke({"query": state["optimized_query"]})
-        
+            # Smart Routing Logic
+            print(f"Using Google Searcher for query: {state['optimized_query']}")
+            
+            # Step 1: Get Google/DDG Results
+            search_results = google_searcher.search(state["optimized_query"], num_results=10)
+            
+            # Step 2: For "Deep Research", we want to actually visit the top links
+            # Let's say we pick the top 3 organic results to deep-scrape
+            print("Deep scraping top 3 results...")
+
+            research_results = []
+
+            # Add snippets first (fast context)
+            for res in search_results:
+                research_results.append({
+                    "url": res['url'],
+                    "title": res['title'],
+                    "content": res['snippet'],
+                    "source": res['source'] + " (Snippet)"
+                })
+
+            # Then deep scrape the top 3
+            count = 0
+            for res in search_results:
+                if count >= 3:
+                    break
+
+                if "DuckDuckGo" in res['source'] or "Google" in res['source']:
+                    print(f"Deep scraping: {res['url']}")
+                    content = web_browser.scrape_url(res['url'])
+
+                    if content and not content.startswith("Error"):
+                         research_results.append({
+                            "url": res['url'],
+                            "title": res['title'],
+                            "content": content[:8000], # Limit content length for context window
+                            "source": "Web Browser Scraper"
+                        })
+                    count += 1
+
+            if not research_results and tavily_available:
+                print("Primary search yielded no results. Falling back to Tavily...")
+                search_results = tavily_search.invoke(state["optimized_query"])
+                research_results = search_results
+
+        # Summarize the combined results
+        research_output = summarize_search_results(state["optimized_query"], research_results)
         return {"research_output": research_output}
+
     except Exception as e:
         print(f"Error in conduct_research: {str(e)}")
-        # Return a placeholder research output to allow the workflow to continue
         return {"research_output": f"Research could not be completed due to an error: {str(e)}"}
+
 def extract_key_claims(state: ResearchState) -> ResearchState:
     print("Extracting key claims from research output...")
     claims = extract_claims(state["research_output"])
@@ -544,30 +567,23 @@ def verify_claims(state: ResearchState) -> ResearchState:
         importance = claim_item.get("importance", "low")
         
         try:
-            if tavily_available and fact_verification_search:
-                # Verify the claim using Tavily
-                verification = verify_claim(claim)
-                
-                # Store the verification data for reference extraction
-                search_results = fact_verification_search.invoke(claim)
-                verification_data = "\n\n".join([
-                    f"Source: {result.get('url', 'Unknown')}\n"
-                    f"Title: {result.get('title', 'No title')}\n"
-                    f"Content: {result.get('content', 'No content')}"
-                    for result in search_results
-                ])
-            else:
-                # Fallback: Generate verification using LLM only
-                print(f"Tavily not available, generating verification for claim: {claim}")
-                verification = {
-                    "accuracy_score": 7,
-                    "confidence_level": 6,
-                    "inaccuracies": [],
-                    "missing_context": ["Limited verification due to no search access"],
-                    "potential_biases": [],
-                    "corrected_claim": claim
-                }
-                verification_data = "Verification based on LLM knowledge only (no external search available)"
+            # Use our verification logic (Google/DDG -> Tavily fallback)
+            verification = verify_claim(claim)
+
+            # For data collection, we re-run the search to get the snippets for the record
+            # (verify_claim does this internally but returns the analysis)
+            # We reconstruct the "verification_data" for the report
+
+            search_results = google_searcher.search(claim, num_results=5)
+            if not search_results and fact_verification_search:
+                 search_results = fact_verification_search.invoke(claim)
+
+            verification_data = "\n\n".join([
+                f"Source: {result.get('url', 'Unknown')}\n"
+                f"Title: {result.get('title', 'No title')}\n"
+                f"Content: {result.get('snippet', result.get('content', 'No content'))}"
+                for result in search_results
+            ])
             
             verification["claim"] = claim
             verification["importance"] = importance
