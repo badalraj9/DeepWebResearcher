@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser, JsonOutputParser
 from langchain_community.tools.tavily_search import TavilySearchResults
@@ -35,28 +34,44 @@ TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 google_searcher = GoogleSearcher()
 web_browser = WebBrowser()
 
-# Configure OpenRouter client
-# You can change the model to a different option if needed:
-# - "anthropic/claude-3.5-sonnet" (best quality, higher cost)
-# - "openai/gpt-3.5-turbo" (good quality, reliable, currently selected)
-# - "mistralai/mixtral-8x7b-instruct" (excellent quality, but may be rate-limited)
-# - "meta-llama/llama-3.1-8b-instruct" (basic quality, very low cost)
+# Define a Mock LLM for when keys are missing
+class MockLLM:
+    def __init__(self, response_text="Mocked response"):
+        self.response_text = response_text
 
-research_llm = ChatOpenAI(
-    api_key=OPENROUTER_API_KEY,
-    base_url="https://openrouter.ai/api/v1",
-    model="xiaomi/mimo-v2-flash:free",  # Excellent quality model for research
-    temperature=0.1,
-    max_tokens=4000
-)
+    def invoke(self, input_data):
+        return self.response_text
 
-fact_checker_llm = ChatOpenAI(
-    api_key=OPENROUTER_API_KEY,
-    base_url="https://openrouter.ai/api/v1",
-    model="xiaomi/mimo-v2-flash:free",  # Excellent quality model for fact-checking
-    temperature=0.1,
-    max_tokens=2000
-)
+    def __or__(self, other):
+        return self
+
+# Initialize LLMs
+try:
+    if OPENROUTER_API_KEY:
+        from langchain_openai import ChatOpenAI
+        research_llm = ChatOpenAI(
+            api_key=OPENROUTER_API_KEY,
+            base_url="https://openrouter.ai/api/v1",
+            model="xiaomi/mimo-v2-flash:free",
+            temperature=0.1,
+            max_tokens=4000
+        )
+
+        fact_checker_llm = ChatOpenAI(
+            api_key=OPENROUTER_API_KEY,
+            base_url="https://openrouter.ai/api/v1",
+            model="xiaomi/mimo-v2-flash:free",
+            temperature=0.1,
+            max_tokens=2000
+        )
+    else:
+        print("Warning: OPENROUTER_API_KEY not found. Using Mock LLM.")
+        research_llm = MockLLM("This is a mock research response because API keys are missing.")
+        fact_checker_llm = MockLLM("This is a mock fact check response.")
+except Exception as e:
+    print(f"Error initializing LLMs: {e}. Using Mock LLM.")
+    research_llm = MockLLM("Error initializing LLM. Mock response.")
+    fact_checker_llm = MockLLM("Error initializing LLM. Mock response.")
 
 # Initialize Tavily search with fallback
 try:
@@ -131,6 +146,9 @@ def summarize_search_results(query: str, search_results: List[Dict[str, Any]]) -
             for result in search_results
         ])
         
+        if isinstance(research_llm, MockLLM):
+            return f"Mock Summary for query: {query}. Found {len(search_results)} results."
+
         #  summarization chain
         chain = summarize_prompt | research_llm | StrOutputParser()
         return chain.invoke({"query": query, "search_results": formatted_results})
@@ -171,6 +189,9 @@ except Exception as e:
 
 # Function to extract key claims from research output
 def extract_claims(research_output):
+    if isinstance(fact_checker_llm, MockLLM):
+        return [{"claim": "Mock claim based on research.", "importance": "medium"}]
+
     try:
         extraction_prompt = ChatPromptTemplate.from_template("""
         You are an expert at identifying factual claims in text. 
@@ -244,6 +265,16 @@ Format your response as a JSON object with the following structure:
 
 # Function to verify a single claim
 def verify_claim(claim):
+    if isinstance(fact_checker_llm, MockLLM):
+        return {
+            "accuracy_score": 8,
+            "confidence_level": 9,
+            "inaccuracies": [],
+            "missing_context": ["Mock verification"],
+            "potential_biases": [],
+            "corrected_claim": claim
+        }
+
     try:
         # Use our Google Searcher first as it's the "free" option
         search_results = google_searcher.search(claim, num_results=5)
@@ -324,6 +355,9 @@ def extract_references(verification_results):
 
 # query optimization function
 def optimize_query_directly(query: str) -> str:
+    if isinstance(research_llm, MockLLM):
+        return query
+
     optimization_prompt = ChatPromptTemplate.from_template("""
     You are a query optimization expert. Your task is to transform the user's query into a
     concise, effective search string suitable for a standard search engine.
@@ -613,7 +647,9 @@ def verify_claims(state: ResearchState) -> ResearchState:
 
 def generate_fact_check_report(state: ResearchState) -> ResearchState:
     print("Generating fact-check report...")
-    
+    if isinstance(fact_checker_llm, MockLLM):
+        return {"fact_check_report": "Mock Fact Check Report: Research appears valid."}
+
     # Clean verification results for the prompt by removing verification_data
     clean_verification_results = []
     for v in state["verification_results"]:
@@ -656,6 +692,12 @@ def generate_fact_check_report(state: ResearchState) -> ResearchState:
 def create_draft_content(state: ResearchState) -> ResearchState:
     print(f"Drafting content in {state['content_style']} style...")
     
+    if isinstance(research_llm, MockLLM):
+        return {
+            "draft_content": f"Mock Draft Content for query '{state['optimized_query']}' in style '{state['content_style']}'.\n\nThis is a placeholder draft since no API keys were provided.",
+            "status": "completed"
+        }
+
     draft_prompt = ChatPromptTemplate.from_template("""
     Based on the comprehensive research results, create a high-quality {style} content about the query: {optimized_query}
     

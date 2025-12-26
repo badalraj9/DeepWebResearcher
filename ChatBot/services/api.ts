@@ -22,7 +22,7 @@ export interface ResearchResult {
   research_output: string;
   fact_check: {
     report: string;
-    verification_results: any[];
+    verification_results: unknown[];
   };
   content: {
     style: string;
@@ -95,7 +95,7 @@ export const saveDraftToLibrary = async (
     console.log("API: Saving draft with research ID:", researchId);
     console.log("API: Content length:", content?.length);
     
-    const requestBody: any = { 
+    const requestBody: {research_id: string, title: string, tags: string[], content?: string} = {
       research_id: researchId, 
       title, 
       tags

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Compass, Lightbulb, HandHelping, Search, Share, BookOpen, Edit, Layout, Filter, Save, Download } from 'lucide-react';
+import { Compass, Lightbulb, Search, Share, BookOpen, Edit, Layout, Filter, Save, Download } from 'lucide-react';
 
 interface InstructionItem {
   id: string;
@@ -310,7 +310,7 @@ const INSTRUCTION_ITEMS: InstructionItem[] = [
   }
 ];
 
-const InstructionsPage: React.FC = () => {
+export const InstructionsPage: React.FC = () => {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
@@ -491,5 +491,3 @@ const InstructionsPage: React.FC = () => {
     </div>
   );
 };
-
-export default InstructionsPage; 

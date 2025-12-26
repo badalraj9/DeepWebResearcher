@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Thinking - The Neural Weave</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#06e8f9",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0f2123",
+                        "void": "#050a0b",
+                        "gold": "#ffd700",
+                        "plasma": "#ff00cc",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                    boxShadow: {
+                        "neon": "0 0 10px theme('colors.primary'), 0 0 20px theme('colors.primary')",
+                        "neon-gold": "0 0 10px theme('colors.gold'), 0 0 20px theme('colors.gold')",
+                        "glass": "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom styles for specific visual effects not easily covered by Tailwind utilities */
+        .glass-panel {
+            background: rgba(15, 33, 35, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(6, 232, 249, 0.2);
+        }
+
+        .node-glow {
+            box-shadow: 0 0 15px 2px rgba(6, 232, 249, 0.6);
+        }
+
+        .gold-glow {
+            box-shadow: 0 0 20px 5px rgba(255, 215, 0, 0.5);
+        }
+
+        .plasma-glow {
+            box-shadow: 0 0 15px 2px rgba(255, 0, 204, 0.5);
+        }
+
+        .connection-line {
+            stroke: rgba(6, 232, 249, 0.3);
+            stroke-width: 1;
+            filter: drop-shadow(0 0 2px rgba(6, 232, 249, 0.5));
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-white font-display overflow-hidden h-screen w-screen selection:bg-primary selection:text-black">
+<!-- Background Gradient -->
+<div class="fixed inset-0 bg-[radial-gradient(circle_at_center,_#1a3d40_0%,_#0f2123_50%,_#000000_100%)] -z-20"></div>
+<!-- Background Grid/Noise texture -->
+<div class="fixed inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] -z-10 pointer-events-none"></div>
+<!-- Main Flex Container -->
+<div class="relative flex h-full w-full flex-col">
+<!-- Header -->
+<header class="flex items-center justify-between px-8 py-5 z-50">
+<div class="flex items-center gap-4 glass-panel rounded-full px-5 py-2">
+<div class="relative flex items-center justify-center size-8">
+<!-- Oracle Eye Icon -->
+<span class="material-symbols-outlined text-primary text-3xl animate-pulse">visibility</span>
+<div class="absolute inset-0 bg-primary rounded-full blur-md opacity-40"></div>
+</div>
+<div class="flex flex-col">
+<h1 class="text-white text-base font-bold leading-none tracking-widest uppercase">Digital Alchemy</h1>
+<span class="text-primary/70 text-xs font-mono">Neural Engine v4.2</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="glass-panel rounded-full size-10 flex items-center justify-center cursor-pointer hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-white text-xl">notifications</span>
+</div>
+<div class="glass-panel rounded-full size-10 flex items-center justify-center cursor-pointer hover:bg-primary/10 transition-colors">
+<div class="size-8 rounded-full bg-cover bg-center" data-alt="User avatar placeholder with abstract geometric pattern" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCfF7TaS7Fc0Je9iVujVSyUY0Mloj9baB16uAoRFlsCYeZs2JbCoTZ97O9eiP0ajUt5EfSyBV7YjVlxQ27KOEdKj5b-76Wtvc6rHqr6Lj8SuduW4cnNyv3GwCWD_nsFoWFf0OlkKbYU08RPqmq41oHAcyByXkNkC6P7nHA9hir5B1RPiOY8F4ppnA06jxedcmxNWRMU2jpWVl5NNAupgV8lM8bFLiRhVcC8Ui64esAjpgg91Js5iJQETvdfvA7sMF4wVPK-hJYdREE');"></div>
+</div>
+</div>
+</header>
+<!-- Main Content Area (3D Visualization Simulation) -->
+<main class="flex-1 relative w-full h-full perspective-[1000px] overflow-hidden">
+<!-- SVG Layer for Lines -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+<!-- Lines connecting nodes -->
+<line class="connection-line" x1="30%" x2="50%" y1="30%" y2="50%"></line>
+<line class="connection-line" x1="70%" x2="50%" y1="25%" y2="50%"></line>
+<line class="connection-line" x1="20%" x2="50%" y1="60%" y2="50%"></line>
+<line class="connection-line" x1="80%" x2="50%" y1="65%" y2="50%"></line>
+<line class="connection-line" style="stroke-opacity: 0.2" x1="30%" x2="20%" y1="30%" y2="60%"></line>
+<line class="connection-line" style="stroke-opacity: 0.2" x1="70%" x2="80%" y1="25%" y2="65%"></line>
+<!-- Central radiating circles -->
+<circle cx="50%" cy="50%" fill="none" r="150" stroke="rgba(6, 232, 249, 0.1)" stroke-dasharray="10 5" stroke-width="1"></circle>
+<circle cx="50%" cy="50%" fill="none" r="280" stroke="rgba(6, 232, 249, 0.05)" stroke-width="1"></circle>
+</svg>
+<!-- 3D Nodes Simulation -->
+<!-- Central Core Node -->
+<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center justify-center gap-4">
+<div class="relative size-32 rounded-full bg-black border border-primary/50 flex items-center justify-center node-glow">
+<div class="absolute inset-0 rounded-full bg-primary/10 blur-xl"></div>
+<span class="material-symbols-outlined text-primary text-5xl">neurology</span>
+</div>
+<div class="glass-panel px-4 py-1 rounded-full text-primary font-bold tracking-widest text-sm uppercase glow-text">Core Processor</div>
+</div>
+<!-- Satellite Node 1 (Top Left) -->
+<div class="absolute left-[28%] top-[28%] z-10 flex flex-col items-center gap-2 transition-transform hover:scale-110 duration-500 cursor-pointer group">
+<div class="size-14 rounded-full bg-background-dark border border-white/30 flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.2)] group-hover:border-primary group-hover:node-glow">
+<span class="material-symbols-outlined text-white/80 group-hover:text-primary text-2xl">database</span>
+</div>
+<div class="text-xs text-white/60 font-mono bg-black/40 px-2 rounded">Raw Data</div>
+</div>
+<!-- Satellite Node 2 (Top Right) -->
+<div class="absolute left-[70%] top-[25%] z-10 flex flex-col items-center gap-2 transition-transform hover:scale-110 duration-500 cursor-pointer group">
+<div class="size-16 rounded-full bg-background-dark border border-plasma flex items-center justify-center plasma-glow">
+<span class="material-symbols-outlined text-plasma text-2xl">science</span>
+</div>
+<div class="glass-panel px-3 py-1 rounded-full">
+<p class="text-xs text-plasma font-bold">Analysis</p>
+</div>
+</div>
+<!-- Satellite Node 3 (Bottom Left) -->
+<div class="absolute left-[20%] top-[60%] z-10 flex flex-col items-center gap-2 transition-transform hover:scale-110 duration-500 cursor-pointer group">
+<div class="size-12 rounded-full bg-background-dark border border-primary/40 flex items-center justify-center hover:bg-primary/20">
+<span class="material-symbols-outlined text-primary text-xl">share</span>
+</div>
+<div class="bg-primary/10 backdrop-blur-md border border-primary/20 px-3 py-1 rounded-full">
+<p class="text-xs text-primary">Sources: 4</p>
+</div>
+</div>
+<!-- Satellite Node 4 (Bottom Right - Gold) -->
+<div class="absolute left-[80%] top-[65%] z-10 flex flex-col items-center gap-2 transition-transform hover:scale-110 duration-500 cursor-pointer group">
+<div class="size-20 rounded-full bg-background-dark border-2 border-gold flex items-center justify-center gold-glow relative">
+<div class="absolute inset-0 bg-gold/10 rounded-full animate-pulse"></div>
+<span class="material-symbols-outlined text-gold text-4xl">light_mode</span>
+</div>
+<div class="glass-panel px-4 py-2 rounded-xl border-gold/30">
+<p class="text-xs text-gold font-bold uppercase tracking-wider">Insight Found</p>
+</div>
+</div>
+<!-- Floating Chips / Data Packets flying through space -->
+<div class="absolute left-[40%] top-[40%] z-0 opacity-80 animate-bounce" style="animation-duration: 3s;">
+<div class="glass-panel px-3 py-1 rounded-full border-l-4 border-l-primary flex items-center gap-2">
+<span class="text-[10px] text-primary font-mono">PKT_892</span>
+<span class="text-xs text-white">Sentiment: Positive</span>
+</div>
+</div>
+<div class="absolute right-[35%] bottom-[40%] z-0 opacity-60 animate-bounce" style="animation-duration: 4s;">
+<div class="glass-panel px-3 py-1 rounded-full border-l-4 border-l-plasma flex items-center gap-2">
+<span class="text-[10px] text-plasma font-mono">ERR_NULL</span>
+<span class="text-xs text-white">Retrying query...</span>
+</div>
+</div>
+<!-- Left Sidebar: Alchemical Log (Timeline) -->
+<div class="absolute top-10 left-10 w-80 z-20 flex flex-col gap-4 pointer-events-none">
+<h2 class="text-2xl font-bold text-white tracking-tight drop-shadow-md">Thought Process</h2>
+<div class="flex flex-col gap-0 relative">
+<!-- Vertical Line -->
+<div class="absolute left-[19px] top-4 bottom-4 w-[1px] bg-gradient-to-b from-primary/50 to-transparent"></div>
+<!-- Item 1 -->
+<div class="flex gap-4 items-start group">
+<div class="relative z-10 size-10 rounded-full bg-[#102223] border border-primary flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(6,232,249,0.3)]">
+<span class="material-symbols-outlined text-primary text-sm">database</span>
+</div>
+<div class="glass-panel p-3 rounded-xl rounded-tl-none mb-4 flex-1 backdrop-blur-xl border-primary/20">
+<p class="text-primary text-xs font-bold uppercase mb-1">Phase 1: Extraction</p>
+<p class="text-white/80 text-sm">Parsing raw unstructured data from Wikipedia...</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex gap-4 items-start group">
+<div class="relative z-10 size-10 rounded-full bg-[#102223] border border-primary flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(6,232,249,0.3)]">
+<span class="material-symbols-outlined text-primary text-sm animate-spin">cyclone</span>
+</div>
+<div class="glass-panel p-3 rounded-xl rounded-tl-none mb-4 flex-1 backdrop-blur-xl border-primary/20">
+<p class="text-primary text-xs font-bold uppercase mb-1">Phase 2: Transmutation</p>
+<p class="text-white/80 text-sm">Synthesizing Neural Weave. Cross-referencing entities...</p>
+<div class="flex gap-2 mt-2">
+<span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full">Alchemy</span>
+<span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full">History</span>
+</div>
+</div>
+</div>
+<!-- Item 3 (Gold) -->
+<div class="flex gap-4 items-start group opacity-60">
+<div class="relative z-10 size-10 rounded-full bg-[#102223] border border-gold flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-gold text-sm">auto_awesome</span>
+</div>
+<div class="glass-panel p-3 rounded-xl rounded-tl-none flex-1 border-gold/20">
+<p class="text-gold text-xs font-bold uppercase mb-1">Phase 3: Crystallization</p>
+<p class="text-white/60 text-sm">Pending final output generation...</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: Stats & Progress -->
+<div class="absolute top-10 right-10 w-72 z-20 flex flex-col gap-6 pointer-events-none">
+<!-- Progress Card -->
+<div class="glass-panel p-5 rounded-2xl border-t border-t-primary/40">
+<div class="flex justify-between items-end mb-2">
+<span class="text-primary font-mono text-sm">PROCESSING</span>
+<span class="text-white text-3xl font-bold">78<span class="text-base font-normal text-white/50">%</span></span>
+</div>
+<div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-blue-500 w-[78%] shadow-[0_0_10px_rgba(6,232,249,0.8)]"></div>
+</div>
+<p class="text-right text-xs text-white/40 mt-2 font-mono">ETA: 0.4s</p>
+</div>
+<!-- Active Entities Card -->
+<div class="glass-panel p-5 rounded-2xl flex flex-col gap-3">
+<h3 class="text-white/70 text-xs font-bold uppercase tracking-wider border-b border-white/10 pb-2">Detected Entities</h3>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-primary shadow-[0_0_8px_theme('colors.primary')]"></div>
+<span class="text-sm text-white">Neural Net</span>
+</div>
+<span class="text-xs font-mono text-primary">98%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-gold shadow-[0_0_8px_theme('colors.gold')]"></div>
+<span class="text-sm text-white">Gold Std.</span>
+</div>
+<span class="text-xs font-mono text-gold">100%</span>
+</div>
+<div class="flex items-center justify-between opacity-50">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-plasma shadow-[0_0_8px_theme('colors.plasma')]"></div>
+<span class="text-sm text-white">Entropy</span>
+</div>
+<span class="text-xs font-mono text-plasma">12%</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Control Dock -->
+<footer class="absolute bottom-8 left-1/2 -translate-x-1/2 z-50">
+<div class="glass-panel px-2 py-2 rounded-full flex items-center gap-2 shadow-2xl">
+<button class="flex items-center justify-center size-12 rounded-full text-white hover:bg-white/10 transition-all hover:scale-105 tooltip-trigger" title="Pause">
+<span class="material-symbols-outlined">pause</span>
+</button>
+<div class="w-px h-6 bg-white/20 mx-1"></div>
+<div class="flex flex-col items-center px-4 w-48">
+<span class="text-[10px] text-primary font-mono uppercase tracking-widest mb-1">Status</span>
+<span class="text-sm font-bold text-white whitespace-nowrap">Weaving Nodes...</span>
+</div>
+<div class="w-px h-6 bg-white/20 mx-1"></div>
+<button class="flex items-center justify-center size-12 rounded-full text-white hover:bg-white/10 transition-all hover:scale-105" title="Expand View">
+<span class="material-symbols-outlined">fullscreen</span>
+</button>
+<button class="flex items-center justify-center size-12 rounded-full bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white border border-red-500/30 transition-all hover:scale-105 ml-2" title="Abort">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</footer>
+</div>
+</body></html>
