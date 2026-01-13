@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Workspace - Prism Editor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#06e8f9",
+                        "secondary": "#ff00d4", // Plasma Pink
+                        "alchemy": "#ffd700", // Alchemical Gold
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#050a14", // Deep void blue/black
+                        "glass-surface": "rgba(16, 34, 35, 0.6)",
+                        "glass-border": "rgba(6, 232, 249, 0.15)",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                    boxShadow: {
+                        "neon": "0 0 20px rgba(6, 232, 249, 0.15), 0 0 40px rgba(6, 232, 249, 0.05)",
+                        "neon-hover": "0 0 30px rgba(6, 232, 249, 0.3), 0 0 60px rgba(6, 232, 249, 0.1)",
+                        "alchemy-glow": "0 0 15px rgba(255, 215, 0, 0.4)",
+                    },
+                    backgroundImage: {
+                        'void-gradient': 'radial-gradient(circle at 50% 0%, #102223 0%, #050a14 60%, #000000 100%)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Custom scrollbar for glass effect */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(6, 232, 249, 0.2);
+            border-radius: 99px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(6, 232, 249, 0.4);
+        }
+
+        /* Selection color */
+        ::selection {
+            background: rgba(6, 232, 249, 0.2);
+            color: #fff;
+        }
+
+        /* Ambient particle animation simulation */
+        .ambient-particle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.4;
+            animation: float 20s infinite ease-in-out;
+            z-index: 0;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-20px, 20px); }
+        }
+
+        /* Blinking cursor simulation */
+        .blinking-cursor::after {
+            content: '|';
+            color: #06e8f9;
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+            font-weight: 200;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Floating toolbar entrance animation */
+        .floating-toolbar {
+            animation: slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(10px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 h-screen overflow-hidden flex flex-col relative font-display antialiased">
+<!-- Background Ambience -->
+<div class="fixed inset-0 z-0 bg-void-gradient pointer-events-none">
+<!-- Abstract Particles/Glows -->
+<div class="ambient-particle bg-primary/20 w-96 h-96 top-[-10%] left-[20%]"></div>
+<div class="ambient-particle bg-secondary/10 w-[500px] h-[500px] bottom-[-10%] right-[10%] animation-delay-2000"></div>
+<div class="ambient-particle bg-alchemy/5 w-64 h-64 top-[40%] left-[10%]"></div>
+</div>
+<!-- Top Navigation (Auto-hiding/Minimal) -->
+<header class="relative z-20 w-full flex items-center justify-between px-8 py-6 opacity-80 hover:opacity-100 transition-opacity duration-300">
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="size-8 rounded-full bg-glass-surface backdrop-blur-md border border-glass-border flex items-center justify-center shadow-neon text-primary group-hover:bg-primary group-hover:text-background-dark transition-colors duration-300">
+<span class="material-symbols-outlined text-[20px]">diamond</span>
+</div>
+<div class="flex flex-col">
+<h2 class="text-white text-sm font-semibold tracking-wide">Prism Editor</h2>
+<span class="text-xs text-primary/60 font-medium">Project Alpha <span class="text-slate-500">/</span> Draft</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center gap-6 mr-4 text-xs font-medium text-slate-400">
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.6)]"></span> Saved</span>
+<span class="hover:text-primary cursor-pointer transition-colors">Export</span>
+<span class="hover:text-primary cursor-pointer transition-colors">Share</span>
+</div>
+<button class="size-10 rounded-full bg-glass-surface backdrop-blur-md border border-glass-border flex items-center justify-center text-slate-300 hover:text-white hover:border-primary/50 transition-all duration-300">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<div class="size-10 rounded-full bg-gradient-to-br from-primary to-blue-600 p-[1px]">
+<img alt="User Profile" class="rounded-full w-full h-full object-cover border-2 border-background-dark" data-alt="User profile avatar gradient" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJQLz2KSz2m18gSO8pzWivCBhz9Mebi1YsPLPdgvF-zNKpx8KhVqqp02R7XUT8oJY9X-sdUpIQ1uNwqbLF1ntnujP_R8Gbi3qGXXYJD1D2iEUznp7ef3SG5HlfR1o4dPb31aeoIc1aZ2N2UMyw9dOVUJ2qmaeayKaju9Puw54FiniVK53_ds52puW07NShlBu98_z9aPeTZZly22HGN7MxYY2634VGYePg5bj-t13zV78v3-Pq1A3lUwTPUFofR1K2L6kUUzEpB5w"/>
+</div>
+</div>
+</header>
+<!-- Main Workspace -->
+<main class="relative z-10 flex-1 flex flex-col items-center justify-center w-full px-4 sm:px-8 py-4 overflow-hidden">
+<!-- The Glass Slate (Editor) -->
+<div class="relative w-full max-w-4xl h-full max-h-[85vh] flex flex-col">
+<!-- Glass Container Background -->
+<div class="absolute inset-0 bg-glass-surface backdrop-blur-xl rounded-2xl border border-glass-border shadow-neon z-0"></div>
+<!-- Editor Content Area -->
+<div class="relative z-10 w-full h-full p-8 md:p-16 overflow-y-auto outline-none" contenteditable="true">
+<!-- Title Placeholder -->
+<h1 class="text-4xl md:text-5xl font-bold text-white mb-8 tracking-tight outline-none border-none placeholder-slate-500" placeholder="Untitled Transmutation">
+                    The Void's Echo
+                </h1>
+<!-- Body Text -->
+<div class="prose prose-invert prose-lg max-w-none text-slate-300 font-light leading-relaxed tracking-wide">
+<p class="mb-6">
+                        The raw data flowed through the conduits like liquid mercury, cool and heavy with potential. We stood at the precipice of the <span class="text-primary font-normal border-b border-primary/30 pb-0.5 selection-highlight">digital void</span>, ready to transmute the chaos into something structured, something gold.
+                    </p>
+<p class="mb-6">
+                        Initiating the sequence was risky. The alchemical algorithms were unstable at these depths. Yet, as the midnight blue hues deepened around us, the bioluminescent indicators flickered to life—one by one, casting a reassuring <span class="text-secondary font-normal border-b border-secondary/30 pb-0.5">neon glow</span> across the glass interfaces.
+                    </p>
+<p class="mb-6 text-slate-400 italic">
+                        "Stability is a myth," the lead architect had said. "We don't stabilize the flux; we ride it."
+                    </p>
+<p class="mb-6 blinking-cursor">
+                        I placed my hands on the prism input...
+                    </p>
+</div>
+</div>
+<!-- Floating Context Toolbar (Simulated as if text is selected) -->
+<!-- Positioned absolutely relative to the editor container for demo purposes -->
+<div class="absolute top-[38%] left-[32%] z-50 floating-toolbar">
+<div class="flex items-center gap-1 p-1.5 rounded-full bg-[#0f2123]/90 backdrop-blur-2xl border border-primary/30 shadow-neon-hover">
+<button aria-label="Bold" class="size-9 rounded-full hover:bg-white/10 flex items-center justify-center text-slate-200 transition-colors">
+<span class="material-symbols-outlined text-[18px]">format_bold</span>
+</button>
+<button aria-label="Italic" class="size-9 rounded-full bg-primary/20 text-primary flex items-center justify-center transition-colors border border-primary/20">
+<span class="material-symbols-outlined text-[18px]">format_italic</span>
+</button>
+<button aria-label="Heading" class="size-9 rounded-full hover:bg-white/10 flex items-center justify-center text-slate-200 transition-colors">
+<span class="material-symbols-outlined text-[18px]">title</span>
+</button>
+<div class="w-px h-5 bg-white/10 mx-1"></div>
+<button aria-label="Quote" class="size-9 rounded-full hover:bg-white/10 flex items-center justify-center text-slate-200 transition-colors">
+<span class="material-symbols-outlined text-[18px]">format_quote</span>
+</button>
+<button aria-label="Link" class="size-9 rounded-full hover:bg-white/10 flex items-center justify-center text-secondary transition-colors">
+<span class="material-symbols-outlined text-[18px]">link</span>
+</button>
+<div class="w-px h-5 bg-white/10 mx-1"></div>
+<button class="flex items-center gap-2 h-9 px-4 rounded-full bg-gradient-to-r from-primary/20 to-primary/10 border border-primary/40 hover:bg-primary/30 text-primary text-xs font-bold uppercase tracking-wider transition-all shadow-[0_0_10px_rgba(6,232,249,0.2)]">
+<span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+                        Transmute
+                    </button>
+</div>
+<!-- Little triangle pointer for the toolbar -->
+<div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#0f2123]/90 border-r border-b border-primary/30 rotate-45"></div>
+</div>
+<!-- Focus Mode Button (Floating Action Button style on the editor edge) -->
+<div class="absolute -right-6 top-1/2 -translate-y-1/2 flex flex-col gap-4 opacity-0 hover:opacity-100 md:opacity-100 transition-opacity duration-500">
+<button class="group relative flex items-center justify-center w-10 h-10 rounded-full bg-glass-surface border border-glass-border hover:border-primary/50 hover:bg-background-dark text-slate-400 hover:text-primary transition-all shadow-lg backdrop-blur-md">
+<span class="material-symbols-outlined text-[20px]">fullscreen</span>
+<span class="absolute right-12 bg-black/80 px-2 py-1 rounded text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Zen Mode</span>
+</button>
+<button class="group relative flex items-center justify-center w-10 h-10 rounded-full bg-glass-surface border border-glass-border hover:border-secondary/50 hover:bg-background-dark text-slate-400 hover:text-secondary transition-all shadow-lg backdrop-blur-md">
+<span class="material-symbols-outlined text-[20px]">history_edu</span>
+<span class="absolute right-12 bg-black/80 px-2 py-1 rounded text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">History</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Footer Status Bar -->
+<footer class="relative z-20 w-full px-8 py-4 flex justify-between items-end pointer-events-none">
+<div class="pointer-events-auto flex items-center gap-3">
+<div class="px-3 py-1.5 rounded-full bg-glass-surface border border-glass-border backdrop-blur-md flex items-center gap-2">
+<span class="block w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(6,232,249,0.8)]"></span>
+<span class="text-xs font-medium text-primary/80 uppercase tracking-widest">System Stable</span>
+</div>
+</div>
+<div class="pointer-events-auto flex flex-col items-end gap-2">
+<!-- Word Count Pill -->
+<div class="px-4 py-1.5 rounded-full bg-glass-surface border border-glass-border backdrop-blur-md text-slate-400 text-xs font-mono">
+<span class="text-white font-semibold">142</span> words <span class="mx-1 opacity-30">|</span> <span class="text-white font-semibold">3</span> min read
+            </div>
+<!-- Helper Hint -->
+<p class="text-[10px] text-slate-500 pr-2">Press <kbd class="font-mono text-slate-400">/</kbd> for commands</p>
+</div>
+</footer>
+</body></html>
